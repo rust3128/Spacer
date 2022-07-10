@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,13 +9,20 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    GlobalSettings/globalsettings.cpp \
+    LogginCategories/loggincategories.cpp \
+    Settings/settingsdialog.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    GlobalSettings/globalsettings.h \
+    LogginCategories/loggincategories.h \
+    Settings/settingsdialog.h \
     mainwindow.h
 
 FORMS += \
+    Settings/settingsdialog.ui \
     mainwindow.ui
 
 TRANSLATIONS += \
