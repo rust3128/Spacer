@@ -14,7 +14,10 @@ class SettingsDialog : public QDialog
 public:
     explicit SettingsDialog(QWidget *parent = nullptr);
     ~SettingsDialog();
-
+private slots:
+    void actionOpenDBTrigered();
+private:
+    void createUI();
 private:
     Ui::SettingsDialog *ui;
 };
