@@ -27,14 +27,37 @@ int main(int argc, char *argv[])
     // Устанавливаем обработчик
     qInstallMessageHandler(messageHandler);
 
+
+    uint lang = 1;
+    QTranslator *trans = new QTranslator();
+    QTranslator *guiTrans = new QTranslator();
+    switch (lang) {
+    case 1:
+        if(trans->load(":/Spacer_RU_ua.qm"))
+            a.installTranslator(trans);
+        if(guiTrans->load(":/Translations/qtbase_uk.qm"))
+            a.installTranslator(guiTrans);
+        break;
+    case 2:
+        if(trans->load(":/Vykrutka_RU_en.qm"))
+            a.installTranslator(trans);
+        if(guiTrans->load(":/Translations/qtbase_en.qm"))
+            a.installTranslator(guiTrans);
+        break;
+    default:
+        if(guiTrans->load(":/Translations/qtbase_ru.qm"))
+            a.installTranslator(guiTrans);
+        break;
+    }
+
     // Загруска файла настроек
     QFile configFile;
     configFile.setFileName(GlobalSettings::CONFIG_FILE_NAME);
     if(!configFile.exists()) {
-        qCritical(logCritical()) << "Не найден конфигурационный файл!";
+        qCritical(logCritical()) << QApplication::tr("Не найден конфигурационный файл!");
         auto result = QMessageBox::question(nullptr,QApplication::tr("Ошибка"),QApplication::tr("Не найден файл настроек!\nВыполнить настройку приложения?"));
         if(result == QMessageBox::Yes){
-            SettingsDialog *settDlg = new SettingsDialog();
+            SettingsDialog *settDlg = new SettingsDialog(true);
             settDlg->exec();
         }
         return 1;

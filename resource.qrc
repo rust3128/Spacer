@@ -2,5 +2,10 @@
     <qresource prefix="/">
         <file>Images/settings_icon.png</file>
         <file>Images/folder_icon.png</file>
+        <file>Translations/qtbase_en.qm</file>
+        <file>Translations/qtbase_ru.qm</file>
+        <file>Translations/qtbase_uk.qm</file>
+        <file>Spacer_RU_en.qm</file>
+        <file>Spacer_RU_ua.qm</file>
     </qresource>
 </RCC>

@@ -12,6 +12,7 @@ win32: RC_ICONS = $$PWD/Images/Spacer.ico
 SOURCES += \
     GlobalSettings/globalsettings.cpp \
     LogginCategories/loggincategories.cpp \
+    Settings/criptpass.cpp \
     Settings/settingsdialog.cpp \
     main.cpp \
     mainwindow.cpp
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     GlobalSettings/globalsettings.h \
     LogginCategories/loggincategories.h \
+    Settings/criptpass.h \
     Settings/settingsdialog.h \
     mainwindow.h
 
@@ -27,7 +29,10 @@ FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += \
-    Spacer_uk_UA.ts
+    Spacer_RU_en.ts
+TRANSLATIONS += \
+    Spacer_RU_ua.ts
+
 CONFIG += lrelease
 CONFIG += embed_translations
 
@@ -38,3 +43,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES += \
+    Spacer_RU_en.qm \
+    Spacer_RU_en.ts \
+    Spacer_RU_ua.qm \
+    Spacer_RU_ua.ts
