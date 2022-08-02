@@ -1,6 +1,5 @@
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
-#include "LogginCategories/loggincategories.h"
 #include "GlobalSettings/globalsettings.h"
 
 #include <QFileDialog>

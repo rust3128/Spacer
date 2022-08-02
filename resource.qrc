@@ -7,5 +7,7 @@
         <file>Translations/qtbase_uk.qm</file>
         <file>Spacer_RU_en.qm</file>
         <file>Spacer_RU_ua.qm</file>
+        <file>Images/add_plus_icon.png</file>
+        <file>Images/setting_icon.png</file>
     </qresource>
 </RCC>

@@ -15,6 +15,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_actionSettings_triggered();
+
+    void on_actionNetworkAzs_triggered();
+
+private:
+    void createUI();
 private:
     Ui::MainWindow *ui;
 };
