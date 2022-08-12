@@ -11,6 +11,9 @@ win32: RC_ICONS = $$PWD/Images/Spacer.ico
 
 SOURCES += \
     Database/database.cpp \
+    Forms/listnetworkform.cpp \
+    Forms/modelnetworklist.cpp \
+    Forms/searchform.cpp \
     GlobalSettings/globalsettings.cpp \
     LogginCategories/loggincategories.cpp \
     NetworkAzs/clickablelabel.cpp \
@@ -32,6 +35,9 @@ SOURCES += \
 
 HEADERS += \
     Database/database.h \
+    Forms/listnetworkform.h \
+    Forms/modelnetworklist.h \
+    Forms/searchform.h \
     GlobalSettings/globalsettings.h \
     LogginCategories/loggincategories.h \
     NetworkAzs/clickablelabel.h \
@@ -51,6 +57,8 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    Forms/listnetworkform.ui \
+    Forms/searchform.ui \
     NetworkAzs/editnetworkazsdialog.ui \
     NetworkAzs/editserverdialog.ui \
     NetworkAzs/networkazsdialog.ui \

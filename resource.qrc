@@ -9,5 +9,7 @@
         <file>Spacer_RU_ua.qm</file>
         <file>Images/add_plus_icon.png</file>
         <file>Images/setting_icon.png</file>
+        <file>Images/search_icon.png</file>
+        <file>Images/close_icon.png</file>
     </qresource>
 </RCC>

@@ -34,6 +34,6 @@ void MainWindow::on_actionNetworkAzs_triggered()
 
 void MainWindow::createUI()
 {
-
+    ui->widgetSearch->resize(QSize(258,114));
 }
 
