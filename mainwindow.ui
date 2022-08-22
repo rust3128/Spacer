@@ -15,10 +15,11 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">QTabBar::tab:!selected {font-size:16pt;};
+QTabBar::tab:selected {font-size:10pt;};</string>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -60,11 +61,38 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Tab 2</string>
-       </attribute>
-      </widget>
+     </widget>
+    </item>
+    <item row="2" column="0" alignment="Qt::AlignHCenter">
+     <widget class="QToolButton" name="toolButtonGoHome">
+      <property name="text">
+       <string>На главную</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/Images/homepage_icon.png</normaloff>:/Images/homepage_icon.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="autoRepeat">
+       <bool>false</bool>
+      </property>
+      <property name="autoExclusive">
+       <bool>false</bool>
+      </property>
+      <property name="toolButtonStyle">
+       <enum>Qt::ToolButtonTextUnderIcon</enum>
+      </property>
+      <property name="autoRaise">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
    </layout>

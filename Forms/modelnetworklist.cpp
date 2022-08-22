@@ -42,6 +42,7 @@ QVariant ModelNetworkList::data(const QModelIndex &idx, int role) const
             }
             break;
 
+
             default:
                 break;
         }

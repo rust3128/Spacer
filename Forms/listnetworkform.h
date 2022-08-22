@@ -5,6 +5,7 @@
 
 #include <QWidget>
 #include <QSqlQueryModel>
+#include <QObject>
 
 namespace Ui {
 class ListNetworkForm;
@@ -18,6 +19,8 @@ public:
     explicit ListNetworkForm(QWidget *parent = nullptr);
     ~ListNetworkForm();
 
+signals:
+    void signalSendNetID(int netID, QString netName);
 private slots:
     void on_listViewNetwork_doubleClicked(const QModelIndex &idx);
 

@@ -11,5 +11,6 @@
         <file>Images/setting_icon.png</file>
         <file>Images/search_icon.png</file>
         <file>Images/close_icon.png</file>
+        <file>Images/homepage_icon.png</file>
     </qresource>
 </RCC>

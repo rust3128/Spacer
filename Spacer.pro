@@ -13,6 +13,8 @@ SOURCES += \
     Database/database.cpp \
     Forms/listnetworkform.cpp \
     Forms/modelnetworklist.cpp \
+    Forms/objectmodel.cpp \
+    Forms/objetslistform.cpp \
     Forms/searchform.cpp \
     GlobalSettings/globalsettings.cpp \
     LogginCategories/loggincategories.cpp \
@@ -37,6 +39,8 @@ HEADERS += \
     Database/database.h \
     Forms/listnetworkform.h \
     Forms/modelnetworklist.h \
+    Forms/objectmodel.h \
+    Forms/objetslistform.h \
     Forms/searchform.h \
     GlobalSettings/globalsettings.h \
     LogginCategories/loggincategories.h \
@@ -58,6 +62,7 @@ HEADERS += \
 
 FORMS += \
     Forms/listnetworkform.ui \
+    Forms/objetslistform.ui \
     Forms/searchform.ui \
     NetworkAzs/editnetworkazsdialog.ui \
     NetworkAzs/editserverdialog.ui \

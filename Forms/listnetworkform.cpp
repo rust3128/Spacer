@@ -26,6 +26,7 @@ void ListNetworkForm::createUI()
 {
     ui->listViewNetwork->setModel(modelNetwork);
 
+
 }
 
 void ListNetworkForm::createModel()
@@ -36,11 +37,6 @@ void ListNetworkForm::createModel()
 
 void ListNetworkForm::on_listViewNetwork_doubleClicked(const QModelIndex &idx)
 {
-    int netID =  modelNetwork->record(idx.row()).value(0).toInt();;
-
-    qInfo(logInfo()) << "netID" << netID;
-
-
-
+    emit signalSendNetID(modelNetwork->record(idx.row()).value(0).toInt(),modelNetwork->record(idx.row()).value(1).toString());
 }
 
