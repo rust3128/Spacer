@@ -16,6 +16,9 @@ public:
     explicit ObjetsListForm(int ID, QWidget *parent = nullptr);
     ~ObjetsListForm();
 
+private slots:
+    void on_tableViewObjects_doubleClicked(const QModelIndex &idx);
+
 private:
     void createUI();
     void createModel();

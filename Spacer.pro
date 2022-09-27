@@ -27,6 +27,10 @@ SOURCES += \
     NetworkAzs/modelsrvers.cpp \
     NetworkAzs/networkazsdialog.cpp \
     NetworkAzs/networkdata.cpp \
+    ObjectWorkplace/objectdata.cpp \
+    ObjectWorkplace/objecttitle.cpp \
+    ObjectWorkplace/objectworkplacewindow.cpp \
+    ObjectWorkplace/workpalce.cpp \
     Settings/criptpass.cpp \
     Settings/edituserdata.cpp \
     Settings/settingsdialog.cpp \
@@ -53,6 +57,10 @@ HEADERS += \
     NetworkAzs/modelsrvers.h \
     NetworkAzs/networkazsdialog.h \
     NetworkAzs/networkdata.h \
+    ObjectWorkplace/objectdata.h \
+    ObjectWorkplace/objecttitle.h \
+    ObjectWorkplace/objectworkplacewindow.h \
+    ObjectWorkplace/workpalce.h \
     Settings/criptpass.h \
     Settings/edituserdata.h \
     Settings/settingsdialog.h \
@@ -67,6 +75,7 @@ FORMS += \
     NetworkAzs/editnetworkazsdialog.ui \
     NetworkAzs/editserverdialog.ui \
     NetworkAzs/networkazsdialog.ui \
+    ObjectWorkplace/objectworkplacewindow.ui \
     Settings/settingsdialog.ui \
     Settings/userdatadialog.ui \
     mainwindow.ui

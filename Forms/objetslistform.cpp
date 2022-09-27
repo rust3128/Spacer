@@ -1,6 +1,7 @@
 #include "objetslistform.h"
 #include "ui_objetslistform.h"
 #include "LogginCategories/loggincategories.h"
+#include "ObjectWorkplace/objectworkplacewindow.h"
 
 ObjetsListForm::ObjetsListForm(int ID, QWidget *parent) :
     QWidget(parent),
@@ -33,7 +34,7 @@ void ObjetsListForm::createUI()
 void ObjetsListForm::createModel()
 {
     modelObject = new ObjectModel(this);
-    QString strSQL = QString("select o.object_id, o.terminal_id, o.adress, o.phone, o.comments, o.rank, o.isactibe from objects o where o.network_id = %1"
+    QString strSQL = QString("select o.object_id, o.terminal_id, o.adress, o.phone, o.comments, o.rank, o.isactive from objects o where o.network_id = %1"
                              "order by o.terminal_id").arg(netID);
     modelObject->setQuery(strSQL);
 
@@ -48,3 +49,11 @@ void ObjetsListForm::createModel()
         modelObject->setHeaderData(_head.key(),Qt::Horizontal,_head.value());
     }
 }
+
+void ObjetsListForm::on_tableViewObjects_doubleClicked(const QModelIndex &idx)
+{
+    int objID = modelObject->data(modelObject->index(idx.row(),0),Qt::DisplayRole).toInt();
+    ObjectWorkplaceWindow *objWin = new ObjectWorkplaceWindow(objID,this);
+    objWin->show();
+}
+
