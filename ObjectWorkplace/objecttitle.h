@@ -17,13 +17,13 @@ public:
     int getRank() const;
     bool getIsActive() const;
     const QString &getComments() const;
-
     const QString &getNetworkName() const;
-
     const QByteArray &getLogo() const;
+    void getTitleData();
+    int getObjectID() const;
 
 private:
-    void getTitleData();
+
 private:
     int objectID;
     int networkID;

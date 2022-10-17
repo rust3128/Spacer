@@ -9,7 +9,7 @@ ObjectData::ObjectData(int ID, QObject *parent)
     ,objectID(ID)
 {
     titleObj = new ObjectTitle(objectID);
-    getListWorkpace();
+    ListWorkpace();
 }
 
 ObjectTitle *ObjectData::getObjTitle()
@@ -17,11 +17,12 @@ ObjectTitle *ObjectData::getObjTitle()
     return titleObj;
 }
 
-void ObjectData::getListWorkpace()
+void ObjectData::ListWorkpace()
 {
 
     QSqlQuery q;
-    q.prepare("select w.workplace_id, w.version_type_id, w.pos_id, w.ipadr from workplaces w "
+    q.prepare("select w.workplace_id, w.version_type_id, t.version_name, w.pos_id, w.ipadr from workplaces w "
+              "left join version_type t on t.version_type_id = w.version_type_id "
               "where w.network_id = :netID and w.terminal_id = :termID "
               "order by w.version_type_id, w.pos_id");
     q.bindValue(":netID", titleObj->getNetworkID());
@@ -34,10 +35,14 @@ void ObjectData::getListWorkpace()
     while(q.next()){
         wk.setWorrplaceID(q.value(0).toInt());
         wk.setVerTypeID(q.value(1).toInt());
-        wk.setPosID(q.value(2).toInt());
-        wk.setIPADR(q.value(3).toString());
+        wk.setVerTypeName(q.value(2).toString());
+        wk.setPosID(q.value(3).toInt());
+        wk.setIPADR(q.value(4).toString());
         listWorkplace.append(wk);
     }
-    qInfo(logInfo()) << "Workplace ist count =" << listWorkplace.size();
+}
 
+const QList<Workpalce> &ObjectData::getListWorkplace() const
+{
+    return listWorkplace;
 }

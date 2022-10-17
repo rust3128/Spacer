@@ -32,6 +32,11 @@ void ObjectTitle::getTitleData()
     logo = q.value(8).toByteArray();
 }
 
+int ObjectTitle::getObjectID() const
+{
+    return objectID;
+}
+
 const QByteArray &ObjectTitle::getLogo() const
 {
     return logo;

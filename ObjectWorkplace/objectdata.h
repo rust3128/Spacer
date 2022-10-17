@@ -11,9 +11,11 @@ class ObjectData : public QObject
 public:
     explicit ObjectData(int ID, QObject *parent = nullptr);
     ObjectTitle * getObjTitle();
+    const QList<Workpalce> &getListWorkplace() const;
+
 signals:
 private:
-    void getListWorkpace(void);
+    void ListWorkpace(void);
 private:
     int objectID;
     ObjectTitle *titleObj;

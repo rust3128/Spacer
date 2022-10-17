@@ -16,6 +16,7 @@ SOURCES += \
     Forms/objectmodel.cpp \
     Forms/objetslistform.cpp \
     Forms/searchform.cpp \
+    Forms/workplceform.cpp \
     GlobalSettings/globalsettings.cpp \
     LogginCategories/loggincategories.cpp \
     NetworkAzs/clickablelabel.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     NetworkAzs/modelsrvers.cpp \
     NetworkAzs/networkazsdialog.cpp \
     NetworkAzs/networkdata.cpp \
+    ObjectWorkplace/edittitleobjectdialog.cpp \
     ObjectWorkplace/objectdata.cpp \
     ObjectWorkplace/objecttitle.cpp \
     ObjectWorkplace/objectworkplacewindow.cpp \
@@ -46,6 +48,7 @@ HEADERS += \
     Forms/objectmodel.h \
     Forms/objetslistform.h \
     Forms/searchform.h \
+    Forms/workplceform.h \
     GlobalSettings/globalsettings.h \
     LogginCategories/loggincategories.h \
     NetworkAzs/clickablelabel.h \
@@ -57,6 +60,7 @@ HEADERS += \
     NetworkAzs/modelsrvers.h \
     NetworkAzs/networkazsdialog.h \
     NetworkAzs/networkdata.h \
+    ObjectWorkplace/edittitleobjectdialog.h \
     ObjectWorkplace/objectdata.h \
     ObjectWorkplace/objecttitle.h \
     ObjectWorkplace/objectworkplacewindow.h \
@@ -72,9 +76,11 @@ FORMS += \
     Forms/listnetworkform.ui \
     Forms/objetslistform.ui \
     Forms/searchform.ui \
+    Forms/workplceform.ui \
     NetworkAzs/editnetworkazsdialog.ui \
     NetworkAzs/editserverdialog.ui \
     NetworkAzs/networkazsdialog.ui \
+    ObjectWorkplace/edittitleobjectdialog.ui \
     ObjectWorkplace/objectworkplacewindow.ui \
     Settings/settingsdialog.ui \
     Settings/userdatadialog.ui \
