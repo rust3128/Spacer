@@ -18,6 +18,10 @@ WorkplceForm::~WorkplceForm()
 
 void WorkplceForm::createUI()
 {
-    ui->labelVerType->setText("MPos"+curWorplace.getVerTypeName());
+    QString verType = "MPos"+curWorplace.getVerTypeName();
+    if(curWorplace.getVerTypeID() == 4){
+        verType += " PosID = " + QString::number(curWorplace.getPosID());
+    }
+    ui->labelVerType->setText(verType);
     ui->labelIP->setText(curWorplace.getIPADR());
 }
