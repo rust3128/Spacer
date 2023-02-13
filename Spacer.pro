@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,6 +28,7 @@ SOURCES += \
     NetworkAzs/modelsrvers.cpp \
     NetworkAzs/networkazsdialog.cpp \
     NetworkAzs/networkdata.cpp \
+    ObjectWorkplace/connstatusvnc.cpp \
     ObjectWorkplace/edittitleobjectdialog.cpp \
     ObjectWorkplace/objectdata.cpp \
     ObjectWorkplace/objecttitle.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     NetworkAzs/modelsrvers.h \
     NetworkAzs/networkazsdialog.h \
     NetworkAzs/networkdata.h \
+    ObjectWorkplace/connstatusvnc.h \
     ObjectWorkplace/edittitleobjectdialog.h \
     ObjectWorkplace/objectdata.h \
     ObjectWorkplace/objecttitle.h \

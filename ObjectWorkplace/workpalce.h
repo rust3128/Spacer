@@ -22,12 +22,16 @@ public:
     int getWorrplaceID() const;
     void setWorrplaceID(int newWorrplaceID);
 
+    int getPortVNC() const;
+    void setPortVNC(int newPortVNC);
+
 private:
     int worrplaceID;
     int verTypeID;
     QString verTypeName;
     int posID;
     QString IPADR;
+    int portVNC;
 };
 
 #endif // WORKPALCE_H

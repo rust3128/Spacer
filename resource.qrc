@@ -14,5 +14,10 @@
         <file>Images/homepage_icon.png</file>
         <file>Images/clipboard_icon.png</file>
         <file>Images/edit_icon.png</file>
+        <file>Images/ping_icon.png</file>
+        <file>Images/tightvnc-logo.png</file>
+        <file>Images/offline_network_icon.png</file>
+        <file>Images/online_network_icon.png</file>
+        <file>Images/waiting_icon.png</file>
     </qresource>
 </RCC>

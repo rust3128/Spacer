@@ -21,7 +21,7 @@ void ObjectData::ListWorkpace()
 {
 
     QSqlQuery q;
-    q.prepare("select w.workplace_id, w.version_type_id, t.version_name, w.pos_id, w.ipadr from workplaces w "
+    q.prepare("select w.workplace_id, w.version_type_id, t.version_name, w.pos_id, w.ipadr, w.vnc_port from workplaces w "
               "left join version_type t on t.version_type_id = w.version_type_id "
               "where w.network_id = :netID and w.terminal_id = :termID "
               "order by w.version_type_id, w.pos_id");
@@ -38,6 +38,7 @@ void ObjectData::ListWorkpace()
         wk.setVerTypeName(q.value(2).toString());
         wk.setPosID(q.value(3).toInt());
         wk.setIPADR(q.value(4).toString());
+        wk.setPortVNC(q.value(5).toInt());
         listWorkplace.append(wk);
     }
 }

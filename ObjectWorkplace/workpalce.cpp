@@ -54,3 +54,13 @@ void Workpalce::setWorrplaceID(int newWorrplaceID)
 {
     worrplaceID = newWorrplaceID;
 }
+
+int Workpalce::getPortVNC() const
+{
+    return portVNC;
+}
+
+void Workpalce::setPortVNC(int newPortVNC)
+{
+    portVNC = newPortVNC;
+}

@@ -1,6 +1,9 @@
 #include "workplceform.h"
 #include "ui_workplceform.h"
 #include "LogginCategories/loggincategories.h"
+#include "ObjectWorkplace/connstatusvnc.h"
+
+#include <QThread>
 
 WorkplceForm::WorkplceForm(Workpalce wk, QWidget *parent) :
     QWidget(parent),
@@ -24,4 +27,52 @@ void WorkplceForm::createUI()
     }
     ui->labelVerType->setText(verType);
     ui->labelIP->setText(curWorplace.getIPADR());
+    getConnStatus();
+}
+
+void WorkplceForm::getConnStatus()
+{
+    ConnStatusVNC *statusVNC = new ConnStatusVNC(curWorplace.getIPADR(), curWorplace.getPortVNC(),this);
+
+    QThread *thread = new QThread();
+
+    statusVNC->moveToThread(thread);
+
+    connect(thread,&QThread::started,this,&WorkplceForm::slotStartConStatus);
+    connect(thread,&QThread::started,statusVNC,&ConnStatusVNC::getConnStatus);
+    connect(statusVNC,&ConnStatusVNC::signalSendStatus,this,&WorkplceForm::slotGetStatus);
+    connect(statusVNC,&ConnStatusVNC::finish,thread,&QThread::quit);
+    connect(statusVNC,&ConnStatusVNC::finish,statusVNC,&ConnStatusVNC::deleteLater);
+    connect(statusVNC,&ConnStatusVNC::finish,this,&WorkplceForm::slotFinishConStatus);
+    connect(thread,&QThread::finished,thread,&QThread::deleteLater);
+
+    thread->start();
+}
+
+void WorkplceForm::slotStartConStatus()
+{
+    ui->labelStatus->setPixmap(QPixmap(":/Images/waiting_icon.png"));
+}
+
+void WorkplceForm::slotGetStatus(bool st)
+{
+    isReadyVNC = st;
+}
+
+void WorkplceForm::slotFinishConStatus()
+{
+    QPixmap pixmap;
+    if(isReadyVNC){
+        pixmap = QPixmap(":/Images/online_network_icon.png");
+    } else {
+        pixmap = QPixmap(":/Images/offline_network_icon.png");
+    }
+    ui->labelStatus->setPixmap(pixmap);
+    ui->toolButtonVNC->setEnabled(isReadyVNC);
+
+}
+
+void WorkplceForm::on_toolButtonPing_clicked()
+{
+
 }
