@@ -14,6 +14,10 @@ class SearchForm : public QWidget
 public:
     explicit SearchForm(QWidget *parent = nullptr);
     ~SearchForm();
+signals:
+    void signalSendSearchTerminalID(int);
+private slots:
+    void on_lineEditSearch_returnPressed();
 
 private:
     void createUI();

@@ -18,6 +18,7 @@ public:
     ~SettingsDialog();
 private slots:
     void actionOpenDBTrigered();
+    void actionOpenVNCrigered();
 
     void on_buttonBox_accepted();
 

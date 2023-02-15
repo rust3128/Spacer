@@ -7,6 +7,7 @@ SearchForm::SearchForm(QWidget *parent) :
 {
     ui->setupUi(this);
     createUI();
+
 }
 
 SearchForm::~SearchForm()
@@ -18,3 +19,9 @@ void SearchForm::createUI()
 {
     ui->lineEditSearch->addAction(QIcon(":/Images/search_icon.png"), QLineEdit::LeadingPosition);
 }
+
+void SearchForm::on_lineEditSearch_returnPressed()
+{
+    emit signalSendSearchTerminalID(ui->lineEditSearch->text().trimmed().toInt());
+}
+

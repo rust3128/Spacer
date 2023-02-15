@@ -64,3 +64,23 @@ void Workpalce::setPortVNC(int newPortVNC)
 {
     portVNC = newPortVNC;
 }
+
+QString Workpalce::getPassVNC() const
+{
+    return passVNC;
+}
+
+void Workpalce::setPassVNC(const QString &newPassVNC)
+{
+    passVNC = newPassVNC;
+}
+
+int Workpalce::getTerminalID() const
+{
+    return terminalID;
+}
+
+void Workpalce::setTerminalID(int newTerminalID)
+{
+    terminalID = newTerminalID;
+}

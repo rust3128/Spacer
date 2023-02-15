@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>423</width>
-    <height>256</height>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Настройки</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2">
-   <item row="1" column="0">
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>База данных</string>
@@ -105,11 +105,23 @@
      </layout>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBoxVNC">
+     <property name="title">
+      <string>VNC</string>
      </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Путь к VNV Viewer</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLineEdit" name="lineEditVNC"/>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="2" column="0">
@@ -124,6 +136,13 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="3" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

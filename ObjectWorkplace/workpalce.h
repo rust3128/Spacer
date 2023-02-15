@@ -25,13 +25,21 @@ public:
     int getPortVNC() const;
     void setPortVNC(int newPortVNC);
 
+    QString getPassVNC() const;
+    void setPassVNC(const QString &newPassVNC);
+
+    int getTerminalID() const;
+    void setTerminalID(int newTerminalID);
+
 private:
     int worrplaceID;
+    int terminalID;
     int verTypeID;
     QString verTypeName;
     int posID;
     QString IPADR;
     int portVNC;
+    QString passVNC;
 };
 
 #endif // WORKPALCE_H

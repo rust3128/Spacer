@@ -17,6 +17,7 @@ public:
 
 public slots:
     void slotGetNetID(int netID,QString netName);
+    void slotGetSearchTermID(int termID);
 private slots:
     void on_actionSettings_triggered();
     void on_actionNetworkAzs_triggered();
@@ -32,5 +33,6 @@ private:
 private:
     Ui::MainWindow *ui;
     QList<int> tabList;
+    int searchTermID;
 };
 #endif // MAINWINDOW_H

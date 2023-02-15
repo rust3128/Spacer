@@ -19,5 +19,6 @@
         <file>Images/offline_network_icon.png</file>
         <file>Images/online_network_icon.png</file>
         <file>Images/waiting_icon.png</file>
+        <file>Images/refresh_icon.png</file>
     </qresource>
 </RCC>

@@ -1,7 +1,9 @@
 #include "workplceform.h"
 #include "ui_workplceform.h"
 #include "LogginCategories/loggincategories.h"
+#include "GlobalSettings/globalsettings.h"
 #include "ObjectWorkplace/connstatusvnc.h"
+#include "ObjectWorkplace/pingdialog.h"
 
 #include <QThread>
 
@@ -27,12 +29,13 @@ void WorkplceForm::createUI()
     }
     ui->labelVerType->setText(verType);
     ui->labelIP->setText(curWorplace.getIPADR());
+    ui->toolButtonVNC->setEnabled(false);
     getConnStatus();
 }
 
 void WorkplceForm::getConnStatus()
 {
-    ConnStatusVNC *statusVNC = new ConnStatusVNC(curWorplace.getIPADR(), curWorplace.getPortVNC(),this);
+    ConnStatusVNC *statusVNC = new ConnStatusVNC(curWorplace.getIPADR(), curWorplace.getPortVNC());
 
     QThread *thread = new QThread();
 
@@ -74,5 +77,31 @@ void WorkplceForm::slotFinishConStatus()
 
 void WorkplceForm::on_toolButtonPing_clicked()
 {
-
+    PingDialog *pingDlg = new PingDialog(&curWorplace,this);
+    pingDlg->exec();
 }
+
+void WorkplceForm::on_toolButtonVNC_clicked()
+{
+    QStringList argum;
+    argum << "-host="+curWorplace.getIPADR() << "-port="+QString::number(curWorplace.getPortVNC())
+          << "-password="+curWorplace.getPassVNC();
+    connectVNC = new QProcess(this);
+    connect(connectVNC,&QProcess::finished,this,&WorkplceForm::slotFinishVNC);
+    connectVNC->setReadChannel(QProcess::StandardError);
+    connectVNC->start(GlobalSettings::VNC_RUN_PATH,argum);
+}
+
+void WorkplceForm::slotFinishVNC()
+{
+    QByteArray *arr = new QByteArray;
+    *arr = connectVNC->readAllStandardError();
+    qInfo(logInfo()) << "VNC Error" << arr->data();
+}
+
+
+void WorkplceForm::on_toolButtonRefresh_clicked()
+{
+    getConnStatus();
+}
+

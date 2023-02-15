@@ -27,10 +27,20 @@ void SettingsDialog::actionOpenDBTrigered()
     ui->lineEditDBFile->setText(fileName);
 }
 
+void SettingsDialog::actionOpenVNCrigered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("VNC Viever"), "",
+                                                    tr("Программы (*.exe);;Все файлы (*.*)"),nullptr,QFileDialog::DontUseNativeDialog);
+    ui->lineEditVNC->setText(fileName);
+}
+
 void SettingsDialog::createUI()
 {
     QAction *openDBAction = ui->lineEditDBFile->addAction(QIcon(":/Images/folder_icon.png"),QLineEdit::TrailingPosition);
+    QAction *openVNCAction = ui->lineEditVNC->addAction(QIcon(":/Images/folder_icon.png"),QLineEdit::TrailingPosition);
+
     connect(openDBAction,&QAction::triggered,this,&SettingsDialog::actionOpenDBTrigered);
+    connect(openVNCAction,&QAction::triggered,this,&SettingsDialog::actionOpenVNCrigered);
     if(isNew){
         ui->lineEditServerName->setFocus();
     } else {
@@ -49,7 +59,9 @@ void SettingsDialog::readSettings()
     ui->lineEditUser->setText(settings.value("User").toString());
     ui->lineEditPass->setText(crP->decriptPass(settings.value("Password").toString()));
     settings.endGroup();
-
+    settings.beginGroup("VNC");
+    ui->lineEditVNC->setText(settings.value("VNCPath").toString());
+    settings.endGroup();
 }
 
 void SettingsDialog::writeSettings()
@@ -61,6 +73,9 @@ void SettingsDialog::writeSettings()
     settings.setValue("DataBase", ui->lineEditDBFile->text().trimmed());
     settings.setValue("User",ui->lineEditUser->text().trimmed());
     settings.setValue("Password", crP->criptPass(ui->lineEditPass->text().trimmed()));
+    settings.endGroup();
+    settings.beginGroup("VNC");
+    settings.setValue("VNCPath", ui->lineEditVNC->text().trimmed());
     settings.endGroup();
 }
 

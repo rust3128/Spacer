@@ -5,6 +5,7 @@
 #include "Forms/listnetworkform.h"
 #include "LogginCategories/loggincategories.h"
 #include "Forms/objetslistform.h"
+#include "Forms/resultsearchform.h"
 
 
 
@@ -46,6 +47,16 @@ void MainWindow::slotGetNetID(int netID, QString netName)
 
 }
 
+void MainWindow::slotGetSearchTermID(int termID)
+{
+    searchTermID = termID;
+    qInfo(logInfo()) << "Search term ID = " << searchTermID;
+    ResultSearchForm *searchRes = new ResultSearchForm(searchTermID);
+    int tabIdx = ui->tabWidget->insertTab(1,searchRes,tr("Поиск"));
+    tabList.append(0);
+    ui->tabWidget->setCurrentIndex(tabIdx);
+}
+
 
 void MainWindow::on_actionSettings_triggered()
 {
@@ -72,6 +83,7 @@ void MainWindow::createUI()
 void MainWindow::createConnections()
 {
     connect(ui->widgetListNetworks,&ListNetworkForm::signalSendNetID,this,&MainWindow::slotGetNetID);
+    connect(ui->widgetSearch,&SearchForm::signalSendSearchTerminalID,this,&MainWindow::slotGetSearchTermID);
 }
 
 

@@ -1,4 +1,4 @@
-QT       += core gui sql network
+QT       += core gui sql network core5compat
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,7 +15,9 @@ SOURCES += \
     Forms/modelnetworklist.cpp \
     Forms/objectmodel.cpp \
     Forms/objetslistform.cpp \
+    Forms/resultsearchform.cpp \
     Forms/searchform.cpp \
+    Forms/searchobjectmodel.cpp \
     Forms/workplceform.cpp \
     GlobalSettings/globalsettings.cpp \
     LogginCategories/loggincategories.cpp \
@@ -33,6 +35,8 @@ SOURCES += \
     ObjectWorkplace/objectdata.cpp \
     ObjectWorkplace/objecttitle.cpp \
     ObjectWorkplace/objectworkplacewindow.cpp \
+    ObjectWorkplace/pingdialog.cpp \
+    ObjectWorkplace/pingmodel.cpp \
     ObjectWorkplace/workpalce.cpp \
     Settings/criptpass.cpp \
     Settings/edituserdata.cpp \
@@ -48,7 +52,9 @@ HEADERS += \
     Forms/modelnetworklist.h \
     Forms/objectmodel.h \
     Forms/objetslistform.h \
+    Forms/resultsearchform.h \
     Forms/searchform.h \
+    Forms/searchobjectmodel.h \
     Forms/workplceform.h \
     GlobalSettings/globalsettings.h \
     LogginCategories/loggincategories.h \
@@ -66,6 +72,8 @@ HEADERS += \
     ObjectWorkplace/objectdata.h \
     ObjectWorkplace/objecttitle.h \
     ObjectWorkplace/objectworkplacewindow.h \
+    ObjectWorkplace/pingdialog.h \
+    ObjectWorkplace/pingmodel.h \
     ObjectWorkplace/workpalce.h \
     Settings/criptpass.h \
     Settings/edituserdata.h \
@@ -77,6 +85,7 @@ HEADERS += \
 FORMS += \
     Forms/listnetworkform.ui \
     Forms/objetslistform.ui \
+    Forms/resultsearchform.ui \
     Forms/searchform.ui \
     Forms/workplceform.ui \
     NetworkAzs/editnetworkazsdialog.ui \
@@ -84,6 +93,7 @@ FORMS += \
     NetworkAzs/networkazsdialog.ui \
     ObjectWorkplace/edittitleobjectdialog.ui \
     ObjectWorkplace/objectworkplacewindow.ui \
+    ObjectWorkplace/pingdialog.ui \
     Settings/settingsdialog.ui \
     Settings/userdatadialog.ui \
     mainwindow.ui
