@@ -80,5 +80,6 @@ void EditTitleObjectDialog::on_buttonBox_accepted()
        qCritical(logCritical()) << tr("Не удалось обновить данные об объекте.") << q.lastError().text();
    }
    this->accept();
+   emit signalUpdateObjData();
 }
 

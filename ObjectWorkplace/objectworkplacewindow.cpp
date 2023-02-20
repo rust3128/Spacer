@@ -3,6 +3,7 @@
 #include "LogginCategories/loggincategories.h"
 #include "ObjectWorkplace/edittitleobjectdialog.h"
 #include "Forms/workplceform.h"
+#include "ObjectWorkplace/editworkplacedialog.h"
 
 
 #include <QClipboard>
@@ -101,6 +102,17 @@ void ObjectWorkplaceWindow::on_toolButtonEditTitle_clicked()
         titleObj->getTitleData();
         titleObj = objData->getObjTitle();
         showTitleObject();
+        emit signalUpdateObjList();
     }
+}
+
+
+void ObjectWorkplaceWindow::on_toolButtonAddWorkPlace_clicked()
+{
+    EditWorkplaceDialog *editWork = new EditWorkplaceDialog(titleObj, nullptr, this);
+        if(editWork->exec() == QDialog::Accepted) {
+            emit signalWorkplaceUpdate(objectID);
+            this->close();
+        }
 }
 

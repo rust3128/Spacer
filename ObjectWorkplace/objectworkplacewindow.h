@@ -17,11 +17,15 @@ class ObjectWorkplaceWindow : public QMainWindow
 public:
     explicit ObjectWorkplaceWindow(int ID, QWidget *parent = nullptr);
     ~ObjectWorkplaceWindow();
-
+signals:
+    void signalUpdateObjList();
+    void signalWorkplaceUpdate(int);
 private slots:
     void on_toolButtonClipboard_clicked();
 
     void on_toolButtonEditTitle_clicked();
+
+    void on_toolButtonAddWorkPlace_clicked();
 
 private:
     void createUI();

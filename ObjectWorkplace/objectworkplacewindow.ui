@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>709</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayoutTitle" columnstretch="0,1,0,0">
       <item row="1" column="2" rowspan="3">
@@ -146,16 +146,48 @@
      </layout>
     </item>
     <item row="1" column="0">
-     <widget class="QListWidget" name="listWidget">
-      <property name="isWrapping" stdset="0">
-       <bool>false</bool>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Рабочие места</string>
       </property>
-      <property name="spacing">
-       <number>0</number>
-      </property>
-      <property name="selectionRectVisible">
-       <bool>true</bool>
-      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QListWidget" name="listWidget">
+         <property name="isWrapping" stdset="0">
+          <bool>false</bool>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="selectionRectVisible">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" alignment="Qt::AlignTop">
+        <widget class="QToolButton" name="toolButtonAddWorkPlace">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Добавить рабочее место...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../resource.qrc">
+           <normaloff>:/Images/add_plus_icon.png</normaloff>:/Images/add_plus_icon.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -165,7 +197,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>709</width>
      <height>21</height>
     </rect>
    </property>

@@ -6,7 +6,7 @@
     <message>
         <location filename="NetworkAzs/editnetworkazsdata.cpp" line="30"/>
         <source>Не возможно обновить данные о сети АЗС.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="NetworkAzs/editnetworkazsdata.cpp" line="32"/>
@@ -131,7 +131,8 @@
     </message>
     <message>
         <location filename="NetworkAzs/editserverdialog.ui" line="36"/>
-        <source>Порт</source>
+        <source>Порт RDP</source>
+        <oldsource>Порт</oldsource>
         <translation type="unfinished">Порт</translation>
     </message>
     <message>
@@ -289,6 +290,11 @@
     <message>
         <location filename="mainwindow.ui" line="138"/>
         <source>Сети АЗС</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="55"/>
+        <source>Поиск</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -603,6 +609,50 @@
     </message>
 </context>
 <context>
+    <name>ResultSearchForm</name>
+    <message>
+        <location filename="Forms/resultsearchform.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/resultsearchform.ui" line="26"/>
+        <source>Найдено объектов:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/resultsearchform.ui" line="54"/>
+        <source> 1-я категория</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/resultsearchform.ui" line="67"/>
+        <source>2-я категория</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/resultsearchform.ui" line="80"/>
+        <source> 3-я категория</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/resultsearchform.ui" line="93"/>
+        <source>Не работает</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/resultsearchform.cpp" line="32"/>
+        <source>Результаты поиска </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/resultsearchform.cpp" line="32"/>
+        <source>.
+Найдено объектов: </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SearchForm</name>
     <message>
         <location filename="Forms/searchform.ui" line="14"/>
@@ -617,6 +667,34 @@
     <message>
         <location filename="Forms/searchform.ui" line="80"/>
         <source>Введите номер АЗС</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SearchObjectModel</name>
+    <message>
+        <location filename="Forms/searchobjectmodel.cpp" line="61"/>
+        <source>Сеть</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/searchobjectmodel.cpp" line="63"/>
+        <source>Терминал</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/searchobjectmodel.cpp" line="65"/>
+        <source>Адрес</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Forms/searchobjectmodel.cpp" line="67"/>
+        <source>Телефон</source>
+        <translation type="unfinished">Телефон</translation>
+    </message>
+    <message>
+        <location filename="Forms/searchobjectmodel.cpp" line="69"/>
+        <source>Примечание</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

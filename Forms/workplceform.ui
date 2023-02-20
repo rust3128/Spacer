@@ -49,6 +49,67 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="labelVerType">
+          <property name="text">
+           <string>VersionTYpe</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelIP">
+          <property name="text">
+           <string>IP</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="5">
+       <widget class="QToolButton" name="toolButtonRefresh">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Перепроверить доступность&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resource.qrc">
+          <normaloff>:/Images/refresh_icon.png</normaloff>:/Images/refresh_icon.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QToolButton" name="toolButtonVNC">
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resource.qrc">
+          <normaloff>:/Images/tightvnc-logo.png</normaloff>:/Images/tightvnc-logo.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="labelStatus">
         <property name="sizePolicy">
@@ -74,55 +135,17 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QLabel" name="labelVerType">
-          <property name="text">
-           <string>VersionTYpe</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="labelIP">
-          <property name="text">
-           <string>IP</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="3">
-       <widget class="QToolButton" name="toolButtonVNC">
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../resource.qrc">
-          <normaloff>:/Images/tightvnc-logo.png</normaloff>:/Images/tightvnc-logo.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>32</width>
-          <height>32</height>
-         </size>
-        </property>
-        <property name="autoRaise">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QToolButton" name="toolButtonRefresh">
+      <item row="0" column="6">
+       <widget class="QToolButton" name="toolButtonEdit">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Перепроверить доступность&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Редактировать данные о рабочем месте&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>...</string>
         </property>
         <property name="icon">
          <iconset resource="../resource.qrc">
-          <normaloff>:/Images/refresh_icon.png</normaloff>:/Images/refresh_icon.png</iconset>
+          <normaloff>:/Images/edit_icon.png</normaloff>:/Images/edit_icon.png</iconset>
         </property>
         <property name="iconSize">
          <size>

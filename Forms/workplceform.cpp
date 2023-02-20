@@ -105,3 +105,9 @@ void WorkplceForm::on_toolButtonRefresh_clicked()
     getConnStatus();
 }
 
+
+void WorkplceForm::on_toolButtonEdit_clicked()
+{
+
+}
+

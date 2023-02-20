@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+   <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label_2">
@@ -83,7 +83,7 @@
      </item>
     </layout>
    </item>
-   <item row="0" column="0">
+   <item row="1" column="0">
     <widget class="QTableView" name="tableViewObjects">
      <property name="editTriggers">
       <set>QAbstractItemView::NoEditTriggers</set>
@@ -96,8 +96,33 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="0">
+    <widget class="QToolButton" name="toolButtonAddObject">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Добавить терминал...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resource.qrc">
+       <normaloff>:/Images/add_plus_icon.png</normaloff>:/Images/add_plus_icon.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="autoRaise">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

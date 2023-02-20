@@ -28,6 +28,8 @@ private slots:
 
     void on_toolButtonRefresh_clicked();
 
+    void on_toolButtonEdit_clicked();
+
 private:
     void createUI();
     void getConnStatus();

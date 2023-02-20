@@ -32,6 +32,7 @@ SOURCES += \
     NetworkAzs/networkdata.cpp \
     ObjectWorkplace/connstatusvnc.cpp \
     ObjectWorkplace/edittitleobjectdialog.cpp \
+    ObjectWorkplace/editworkplacedialog.cpp \
     ObjectWorkplace/objectdata.cpp \
     ObjectWorkplace/objecttitle.cpp \
     ObjectWorkplace/objectworkplacewindow.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     NetworkAzs/networkdata.h \
     ObjectWorkplace/connstatusvnc.h \
     ObjectWorkplace/edittitleobjectdialog.h \
+    ObjectWorkplace/editworkplacedialog.h \
     ObjectWorkplace/objectdata.h \
     ObjectWorkplace/objecttitle.h \
     ObjectWorkplace/objectworkplacewindow.h \
@@ -92,6 +94,7 @@ FORMS += \
     NetworkAzs/editserverdialog.ui \
     NetworkAzs/networkazsdialog.ui \
     ObjectWorkplace/edittitleobjectdialog.ui \
+    ObjectWorkplace/editworkplacedialog.ui \
     ObjectWorkplace/objectworkplacewindow.ui \
     ObjectWorkplace/pingdialog.ui \
     Settings/settingsdialog.ui \

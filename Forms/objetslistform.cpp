@@ -2,6 +2,12 @@
 #include "ui_objetslistform.h"
 #include "LogginCategories/loggincategories.h"
 #include "ObjectWorkplace/objectworkplacewindow.h"
+#include "ObjectWorkplace/edittitleobjectdialog.h"
+
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QSqlQuery>
+#include <QSqlError>
 
 ObjetsListForm::ObjetsListForm(int ID, QWidget *parent) :
     QWidget(parent),
@@ -16,6 +22,13 @@ ObjetsListForm::ObjetsListForm(int ID, QWidget *parent) :
 ObjetsListForm::~ObjetsListForm()
 {
     delete ui;
+}
+
+void ObjetsListForm::slotUpdateObjList()
+{
+    modelObject->setQuery(modelObject->query().lastQuery());
+    ui->tableViewObjects->resizeColumnsToContents();
+    ui->tableViewObjects->resizeRowsToContents();
 }
 
 void ObjetsListForm::createUI()
@@ -54,6 +67,58 @@ void ObjetsListForm::on_tableViewObjects_doubleClicked(const QModelIndex &idx)
 {
     int objID = modelObject->data(modelObject->index(idx.row(),0),Qt::DisplayRole).toInt();
     ObjectWorkplaceWindow *objWin = new ObjectWorkplaceWindow(objID,this);
+    connect(objWin,&ObjectWorkplaceWindow::signalUpdateObjList,this,&ObjetsListForm::slotUpdateObjList);
+    connect(objWin,&ObjectWorkplaceWindow::signalWorkplaceUpdate,this,&ObjetsListForm::slotWorkplaceUpdate);
     objWin->show();
+}
+
+void ObjetsListForm::slotWorkplaceUpdate(int ID)
+{
+    ObjectWorkplaceWindow *objWin = new ObjectWorkplaceWindow(ID,this);
+    connect(objWin,&ObjectWorkplaceWindow::signalUpdateObjList,this,&ObjetsListForm::slotUpdateObjList);
+    connect(objWin,&ObjectWorkplaceWindow::signalWorkplaceUpdate,this,&ObjetsListForm::slotWorkplaceUpdate);
+    objWin->show();
+}
+
+void ObjetsListForm::on_toolButtonAddObject_clicked()
+{
+    bool ok;
+
+    int newTermID = QInputDialog::getInt(this, tr("Добавление нового терминала"),
+                                 tr("Terminal ID:"), 0, 0, 99999, 1, &ok);
+    if (!ok){
+        return;
+    }
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, tr("Добавление нового терминала"),
+                          tr("Вы действительно хотите добвать терминал ")+QString::number(newTermID)+tr(" для этой сети АЗС?\nОперация не обратима."),
+                          QMessageBox::Yes | QMessageBox::No);
+    if(reply == QMessageBox::No){
+        return;
+    }
+    QSqlQuery q;
+    q.prepare("INSERT INTO OBJECTS (NETWORK_ID, TERMINAL_ID) VALUES (:netID, :termID)");
+    q.bindValue(0,netID);
+    q.bindValue(1,newTermID);
+    if(!q.exec()){
+        qCritical(logCritical()) << tr("Не удалось добавмть новый терминал ")+QString::number(newTermID) << q.lastError().text();
+        return;
+    }
+    q.finish();
+    q.prepare("select o.object_id from objects o where o.network_id = :netID and o.terminal_id = :termID");
+    q.bindValue(0,netID);
+    q.bindValue(1,newTermID);
+    if(!q.exec()){
+        qCritical(logCritical()) << tr("Не удалось получить данные о терминале ")+QString::number(newTermID) << q.lastError().text();
+        return;
+    }
+    q.next();
+    auto newObjID = q.value(0).toInt();
+    newObjData = new ObjectData(newObjID);
+    newObjTitle = new ObjectTitle(newObjID);
+    newObjTitle = newObjData->getObjTitle();
+    EditTitleObjectDialog *editNewObj =new  EditTitleObjectDialog(newObjTitle);
+    connect(editNewObj,&EditTitleObjectDialog::signalUpdateObjData,this,&ObjetsListForm::slotUpdateObjList);
+    editNewObj->exec();
 }
 
