@@ -41,9 +41,11 @@ SOURCES += \
     ObjectWorkplace/workpalce.cpp \
     Settings/criptpass.cpp \
     Settings/edituserdata.cpp \
+    Settings/modeeluserlist.cpp \
     Settings/settingsdialog.cpp \
     Settings/userdata.cpp \
     Settings/userdatadialog.cpp \
+    Settings/userlistdialog.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -79,9 +81,11 @@ HEADERS += \
     ObjectWorkplace/workpalce.h \
     Settings/criptpass.h \
     Settings/edituserdata.h \
+    Settings/modeeluserlist.h \
     Settings/settingsdialog.h \
     Settings/userdata.h \
     Settings/userdatadialog.h \
+    Settings/userlistdialog.h \
     mainwindow.h
 
 FORMS += \
@@ -99,6 +103,7 @@ FORMS += \
     ObjectWorkplace/pingdialog.ui \
     Settings/settingsdialog.ui \
     Settings/userdatadialog.ui \
+    Settings/userlistdialog.ui \
     mainwindow.ui
 
 TRANSLATIONS += \

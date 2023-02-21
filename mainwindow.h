@@ -12,7 +12,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(int id, QWidget *parent = nullptr);
     ~MainWindow();
 
 public slots:
@@ -27,12 +27,17 @@ private slots:
 
     void on_toolButtonGoHome_clicked();
 
+    void on_actionUsers_triggered();
+
 private:
     void createUI();
     void createConnections();
+    void getUserStatus();
 private:
     Ui::MainWindow *ui;
     QList<int> tabList;
     int searchTermID;
+    int userID;
+    bool isAdmin;
 };
 #endif // MAINWINDOW_H

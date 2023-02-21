@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
     }
 
 
-    MainWindow w;
+    MainWindow w{userID};
     qInfo(logInfo()) << QApplication::tr("Запуск гланого окна приложения.");
     w.show();
     return a.exec();

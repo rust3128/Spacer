@@ -6,14 +6,18 @@
 #include "LogginCategories/loggincategories.h"
 #include "Forms/objetslistform.h"
 #include "Forms/resultsearchform.h"
+#include "Settings/userlistdialog.h"
 
+#include <QSqlQuery>
+#include <QSqlError>
 
-
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(int id, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow),
+      userID(id)
 {
     ui->setupUi(this);
+    getUserStatus();
     createUI();
     createConnections();
 }
@@ -77,13 +81,28 @@ void MainWindow::createUI()
     ui->widgetSearch->resize(QSize(258,114));
     tabList.append(0);
     ui->toolButtonGoHome->hide();
-
+    ui->actionSettings->setEnabled(isAdmin);
+    ui->actionNetworkAzs->setEnabled(isAdmin);
 }
 
 void MainWindow::createConnections()
 {
     connect(ui->widgetListNetworks,&ListNetworkForm::signalSendNetID,this,&MainWindow::slotGetNetID);
     connect(ui->widgetSearch,&SearchForm::signalSendSearchTerminalID,this,&MainWindow::slotGetSearchTermID);
+}
+
+void MainWindow::getUserStatus()
+{
+    QSqlQuery q;
+    q.prepare("select u.isadmin from users u  where u.user_id = :userID");
+    q.bindValue(0, userID);
+    if(!q.exec()){
+        qCritical(logCritical()) << q.lastError().text();
+        isAdmin = false;
+        return;
+    }
+    q.next();
+    isAdmin = q.value(0).toBool();
 }
 
 
@@ -112,5 +131,12 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 void MainWindow::on_toolButtonGoHome_clicked()
 {
     ui->tabWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_actionUsers_triggered()
+{
+    UserListDialog *userList = new UserListDialog(userID, this);
+    userList->exec();
 }
 

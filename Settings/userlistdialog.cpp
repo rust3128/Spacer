@@ -1,0 +1,65 @@
+#include "userlistdialog.h"
+#include "ui_userlistdialog.h"
+#include "LogginCategories/loggincategories.h"
+
+UserListDialog::UserListDialog(int id, QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::UserListDialog),
+    curUserID(id)
+{
+    ui->setupUi(this);
+    createModel();
+    getUserRole();
+    createUI();
+}
+
+UserListDialog::~UserListDialog()
+{
+    delete ui;
+}
+
+void UserListDialog::createUI()
+{
+    ui->tableViewUsers->setModel(modelUsers);
+
+    ui->tableViewUsers->hideColumn(0);
+    ui->tableViewUsers->resizeColumnsToContents();
+}
+
+void UserListDialog::createModel()
+{
+    modelUsers = new ModeelUserList(this);
+    modelUsers->setQuery("select u.user_id, u.username, u.fio, u.phone, u.phoneaster, u.email, u.ui_lang, u.isactive, u.isadmin from users u");
+
+}
+
+void UserListDialog::getUserRole()
+{
+
+    for (int i = 0; i < modelUsers->rowCount(); ++i) {
+        QModelIndex index = modelUsers->index(i, 0); // первый столбец
+        auto value = modelUsers->data(index,Qt::DisplayRole).toInt();
+
+        if (value == curUserID) {
+            isAdmin = (modelUsers->data(modelUsers->index(i,8),Qt::DisplayRole).toString() == "ADMIN") ? true : false;
+            break;
+        }
+    }
+}
+
+void UserListDialog::on_buttonBox_rejected()
+{
+    this->reject();
+}
+
+
+void UserListDialog::on_tableViewUsers_doubleClicked(const QModelIndex &idx)
+{
+    auto editUserID = modelUsers->data(modelUsers->index(idx.row(),0),Qt::DisplayRole).toInt();
+    if(editUserID == curUserID || isAdmin){
+        qInfo(logInfo()) << "Go EDIT";
+    } else {
+        qInfo(logInfo()) << "No rights to edit.";
+    }
+}
+
