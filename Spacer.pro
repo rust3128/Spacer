@@ -42,6 +42,7 @@ SOURCES += \
     Settings/criptpass.cpp \
     Settings/edituserdata.cpp \
     Settings/modeeluserlist.cpp \
+    Settings/qaesencryption.cpp \
     Settings/settingsdialog.cpp \
     Settings/userdata.cpp \
     Settings/userdatadialog.cpp \
@@ -82,6 +83,7 @@ HEADERS += \
     Settings/criptpass.h \
     Settings/edituserdata.h \
     Settings/modeeluserlist.h \
+    Settings/qaesencryption.h \
     Settings/settingsdialog.h \
     Settings/userdata.h \
     Settings/userdatadialog.h \

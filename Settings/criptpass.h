@@ -7,8 +7,13 @@ class CriptPass
 {
 public:
     CriptPass();
-    QString criptPass(QString str);
-    QString decriptPass(QString str);
+    QString criptPass(QString password);
+    QString decriptPass(QString password);
+private:
+    QString key;
+    QString iv;
+    QByteArray hashKey;
+    QByteArray hashIV;
 };
 
 #endif // CRIPTPASS_H

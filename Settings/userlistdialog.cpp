@@ -2,6 +2,8 @@
 #include "ui_userlistdialog.h"
 #include "LogginCategories/loggincategories.h"
 
+#include <QMessageBox>
+
 UserListDialog::UserListDialog(int id, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::UserListDialog),
@@ -59,7 +61,10 @@ void UserListDialog::on_tableViewUsers_doubleClicked(const QModelIndex &idx)
     if(editUserID == curUserID || isAdmin){
         qInfo(logInfo()) << "Go EDIT";
     } else {
-        qInfo(logInfo()) << "No rights to edit.";
+        QMessageBox msgBox(QMessageBox::Warning, tr("Доступ запрещен"),
+                                  tr("Вы можете редакитровать только свои данные."), { }, this);
+        msgBox.setDetailedText("Для изменеия данных других пользователей необходимо получить права Администратора.");
+        msgBox.exec();
     }
 }
 
