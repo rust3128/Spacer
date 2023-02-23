@@ -4,13 +4,16 @@
 #include "GlobalSettings/globalsettings.h"
 #include "ObjectWorkplace/connstatusvnc.h"
 #include "ObjectWorkplace/pingdialog.h"
+#include "ObjectWorkplace/editworkplacedialog.h"
 
 #include <QThread>
 
-WorkplceForm::WorkplceForm(Workpalce wk, QWidget *parent) :
+WorkplceForm::WorkplceForm(Workpalce wk, ObjectTitle *title, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WorkplceForm),
-    curWorplace(wk)
+    curWorplace(wk),
+    titleObject(title)
+
 {
     ui->setupUi(this);
     createUI();
@@ -108,6 +111,10 @@ void WorkplceForm::on_toolButtonRefresh_clicked()
 
 void WorkplceForm::on_toolButtonEdit_clicked()
 {
+    EditWorkplaceDialog *editWork = new EditWorkplaceDialog(titleObject, &curWorplace, this);
+    if(editWork->exec() == QDialog::Accepted){
+        emit signalSendUpdateWp();
+    }
 
 }
 

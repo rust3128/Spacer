@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
                                         QMessageBox::Yes | QMessageBox::No);
         if (reply == QMessageBox::Yes){
             //Диалог редактирования пользователя
-            UserDataDialog *usData = new UserDataDialog(userID);
+            UserDataDialog *usData = new UserDataDialog(userID, false);
             usData->exec();
         }
     }

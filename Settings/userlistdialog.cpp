@@ -1,6 +1,8 @@
 #include "userlistdialog.h"
+#include "qsqlquery.h"
 #include "ui_userlistdialog.h"
 #include "LogginCategories/loggincategories.h"
+#include "Settings/userdatadialog.h"
 
 #include <QMessageBox>
 
@@ -59,7 +61,12 @@ void UserListDialog::on_tableViewUsers_doubleClicked(const QModelIndex &idx)
 {
     auto editUserID = modelUsers->data(modelUsers->index(idx.row(),0),Qt::DisplayRole).toInt();
     if(editUserID == curUserID || isAdmin){
-        qInfo(logInfo()) << "Go EDIT";
+        UserDataDialog *editUserDlg = new UserDataDialog(editUserID,isAdmin,this);
+        if(editUserDlg->exec() == QDialog::Accepted){
+            modelUsers->setQuery(modelUsers->query().lastQuery());
+            ui->tableViewUsers->resizeColumnsToContents();
+        }
+
     } else {
         QMessageBox msgBox(QMessageBox::Warning, tr("Доступ запрещен"),
                                   tr("Вы можете редакитровать только свои данные."), { }, this);

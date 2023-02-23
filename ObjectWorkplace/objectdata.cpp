@@ -33,6 +33,7 @@ void ObjectData::ListWorkpace()
     }
     Workpalce wk;
     while(q.next()){
+        wk.setObjectID(objectID);
         wk.setWorrplaceID(q.value(0).toInt());
         wk.setVerTypeID(q.value(1).toInt());
         wk.setVerTypeName(q.value(2).toString());

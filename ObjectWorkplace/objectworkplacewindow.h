@@ -21,6 +21,7 @@ signals:
     void signalUpdateObjList();
     void signalWorkplaceUpdate(int);
 private slots:
+    void slotUpdateWorkplace();
     void on_toolButtonClipboard_clicked();
 
     void on_toolButtonEditTitle_clicked();

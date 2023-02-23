@@ -15,7 +15,7 @@ class UserDataDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit UserDataDialog(uint ID, QWidget *parent = nullptr);
+    explicit UserDataDialog(uint ID, bool isAdmin, QWidget *parent = nullptr);
     ~UserDataDialog();
 
 private slots:
@@ -30,6 +30,7 @@ private:
     uint userID;
     EditUserData *editUserData;
     UserData *userData;
+    bool isAdmin;
 };
 
 #endif // USERDATADIALOG_H

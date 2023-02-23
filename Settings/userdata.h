@@ -34,6 +34,9 @@ public:
     bool getIsChanged() const;
     void setIsChanged(bool newIsChanged);
 
+    bool getIsAdmin() const;
+    void setIsAdmin(bool newIsAdmin);
+
 private:
     unsigned int userID;
     QString userName;
@@ -44,6 +47,7 @@ private:
     unsigned int uiLang;
     bool isActive;
     bool isChanged;
+    bool isAdmin;
 };
 
 #endif // USERDATA_H

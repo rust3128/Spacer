@@ -94,3 +94,13 @@ void UserData::setIsChanged(bool newIsChanged)
 {
     isChanged = newIsChanged;
 }
+
+bool UserData::getIsAdmin() const
+{
+    return isAdmin;
+}
+
+void UserData::setIsAdmin(bool newIsAdmin)
+{
+    isAdmin = newIsAdmin;
+}

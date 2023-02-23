@@ -84,3 +84,13 @@ void Workpalce::setTerminalID(int newTerminalID)
 {
     terminalID = newTerminalID;
 }
+
+int Workpalce::getObjectID() const
+{
+    return objectID;
+}
+
+void Workpalce::setObjectID(int newObjectID)
+{
+    objectID = newObjectID;
+}

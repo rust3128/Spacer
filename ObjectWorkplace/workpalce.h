@@ -31,7 +31,12 @@ public:
     int getTerminalID() const;
     void setTerminalID(int newTerminalID);
 
+    int getObjectID() const;
+    void setObjectID(int newObjectID);
+
 private:
+
+    int objectID;
     int worrplaceID;
     int terminalID;
     int verTypeID;

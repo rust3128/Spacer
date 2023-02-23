@@ -25,6 +25,7 @@ ObjectWorkplaceWindow::~ObjectWorkplaceWindow()
     delete ui;
 }
 
+
 void ObjectWorkplaceWindow::createUI()
 {
     QString winTitle = titleObj->getNetworkName() + " "
@@ -78,7 +79,8 @@ void ObjectWorkplaceWindow::showWorkpace()
     int sizeWorkplace = listWorkplace.size();
     for(int i = 0; i<sizeWorkplace; ++i){
         auto item = new QListWidgetItem();
-        auto wk = new WorkplceForm(listWorkplace.at(i),this);
+        auto wk = new WorkplceForm(listWorkplace.at(i),titleObj, this);
+        connect(wk,&WorkplceForm::signalSendUpdateWp,this,&ObjectWorkplaceWindow::slotUpdateWorkplace);
         item->setSizeHint(wk->sizeHint());
         ui->listWidget->addItem(item);
         ui->listWidget->setItemWidget(item,wk);
@@ -106,7 +108,6 @@ void ObjectWorkplaceWindow::on_toolButtonEditTitle_clicked()
     }
 }
 
-
 void ObjectWorkplaceWindow::on_toolButtonAddWorkPlace_clicked()
 {
     EditWorkplaceDialog *editWork = new EditWorkplaceDialog(titleObj, nullptr, this);
@@ -114,5 +115,11 @@ void ObjectWorkplaceWindow::on_toolButtonAddWorkPlace_clicked()
             emit signalWorkplaceUpdate(objectID);
             this->close();
         }
+}
+
+void ObjectWorkplaceWindow::slotUpdateWorkplace()
+{
+    emit signalWorkplaceUpdate(objectID);
+    this->close();
 }
 
