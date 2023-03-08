@@ -28,6 +28,13 @@ EditNetworkAzsDialog::~EditNetworkAzsDialog()
     delete ui;
 }
 
+void EditNetworkAzsDialog::actionOpenDBTrigered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Файл базы данных"), "",
+                                                    tr("База данных (*.gdb *.fdb);;Все файлы (*.*)"),nullptr,QFileDialog::DontUseNativeDialog);
+    ui->lineEditDataBaseFile->setText(fileName);
+}
+
 void EditNetworkAzsDialog::slotLogoFileOpen()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Загрузка логотипа"), "",
@@ -58,6 +65,10 @@ void EditNetworkAzsDialog::createUI()
     ui->tableViewServers->setModel(modelServers);
     ui->tableViewServers->hideColumn(0);
     ui->tableViewServers->resizeColumnsToContents();
+
+    QAction *openDBAction = ui->lineEditDataBaseFile->addAction(QIcon(":/Images/folder_icon.png"),QLineEdit::TrailingPosition);
+    connect(openDBAction,&QAction::triggered,this,&EditNetworkAzsDialog::actionOpenDBTrigered);
+
 }
 
 void EditNetworkAzsDialog::createModel()

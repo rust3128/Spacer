@@ -20,6 +20,7 @@ public:
     ~EditNetworkAzsDialog();
 
 private slots:
+    void actionOpenDBTrigered();
     void slotLogoFileOpen();
     void on_buttonBox_rejected();
 

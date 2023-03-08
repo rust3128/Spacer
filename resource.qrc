@@ -22,5 +22,6 @@
         <file>Images/refresh_icon.png</file>
         <file>Images/users_icon.png</file>
         <file>Images/gas station_icon.png</file>
+        <file>Images/Spacer.ico</file>
     </qresource>
 </RCC>
