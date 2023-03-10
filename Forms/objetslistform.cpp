@@ -42,6 +42,8 @@ void ObjetsListForm::createUI()
     ui->tableViewObjects->resizeColumnsToContents();
     ui->tableViewObjects->horizontalHeader()->setStretchLastSection(true);
     ui->tableViewObjects->resizeRowsToContents();
+    ui->splitter->setStretchFactor(0,2);
+    ui->splitter->setStretchFactor(1,1);
 }
 
 void ObjetsListForm::createModel()

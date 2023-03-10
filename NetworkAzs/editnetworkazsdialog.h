@@ -4,6 +4,7 @@
 #include "NetworkAzs/networkdata.h"
 #include "NetworkAzs/editnetworkazsdata.h"
 #include "modelsrvers.h"
+#include "centraldbconnect.h"
 #include <QDialog>
 
 
@@ -30,15 +31,19 @@ private slots:
 
     void on_tableViewServers_doubleClicked(const QModelIndex &idx);
 
+
+
 private:
     void createUI();
     void createModel();
+    void updateCentralDB();
 private:
     Ui::EditNetworkAzsDialog *ui;
     int networkID;
     NetworkData *netData;
     EditNetworkAzsData *editNetAzs;
     ModelSrvers *modelServers;
+    CentralDBConnect *centralDB;
 };
 
 #endif // EDITNETWORKAZSDIALOG_H

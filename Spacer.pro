@@ -21,6 +21,7 @@ SOURCES += \
     Forms/workplceform.cpp \
     GlobalSettings/globalsettings.cpp \
     LogginCategories/loggincategories.cpp \
+    NetworkAzs/centraldbconnect.cpp \
     NetworkAzs/clickablelabel.cpp \
     NetworkAzs/editnetworkazsdata.cpp \
     NetworkAzs/editnetworkazsdialog.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     Forms/workplceform.h \
     GlobalSettings/globalsettings.h \
     LogginCategories/loggincategories.h \
+    NetworkAzs/centraldbconnect.h \
     NetworkAzs/clickablelabel.h \
     NetworkAzs/editnetworkazsdata.h \
     NetworkAzs/editnetworkazsdialog.h \

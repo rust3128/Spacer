@@ -17,10 +17,6 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
-      <property name="styleSheet">
-       <string notr="true">QTabBar::tab:!selected {font-size:16pt;};
-QTabBar::tab:selected {font-size:10pt;};</string>
-      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>

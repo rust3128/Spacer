@@ -3,11 +3,13 @@
 #include "LogginCategories/loggincategories.h"
 #include "editserverdialog.h"
 
+
 #include <QFileDialog>
 #include <QBuffer>
 #include <QInputDialog>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QTcpSocket>
 
 EditNetworkAzsDialog::EditNetworkAzsDialog(int ID, QWidget *parent) :
     QDialog(parent),
@@ -18,6 +20,7 @@ EditNetworkAzsDialog::EditNetworkAzsDialog(int ID, QWidget *parent) :
     connect(ui->labelLogo,&ClickableLabel::clicked,this,&EditNetworkAzsDialog::slotLogoFileOpen);
     editNetAzs = new EditNetworkAzsData(networkID);
     netData = editNetAzs->getNetData();
+    centralDB = new CentralDBConnect(networkID);
     createModel();
     createUI();
 
@@ -68,6 +71,13 @@ void EditNetworkAzsDialog::createUI()
 
     QAction *openDBAction = ui->lineEditDataBaseFile->addAction(QIcon(":/Images/folder_icon.png"),QLineEdit::TrailingPosition);
     connect(openDBAction,&QAction::triggered,this,&EditNetworkAzsDialog::actionOpenDBTrigered);
+    centralDB->readFromDB();
+    ui->lineEditServer->setText(centralDB->getServer());
+    if(centralDB->getPort() != 0)
+        ui->spinBoxPort->setValue(centralDB->getPort());
+    ui->lineEditDataBaseFile->setText(centralDB->getFileDB());
+    ui->lineEditUser->setText(centralDB->getUser());
+    ui->lineEditPass->setText(centralDB->getPass());
 
 }
 
@@ -83,6 +93,15 @@ void EditNetworkAzsDialog::createModel()
     modelServers->setHeaderData(4,Qt::Horizontal,tr("Работает"));
 }
 
+void EditNetworkAzsDialog::updateCentralDB()
+{
+    centralDB->setServer(ui->lineEditServer->text().trimmed());
+    centralDB->setPort(ui->spinBoxPort->value());
+    centralDB->setFileDB(ui->lineEditDataBaseFile->text().trimmed());
+    centralDB->setUser(ui->lineEditUser->text().trimmed());
+    centralDB->setPass(ui->lineEditPass->text().trimmed());
+}
+
 void EditNetworkAzsDialog::on_buttonBox_rejected()
 {
     this->reject();
@@ -94,6 +113,8 @@ void EditNetworkAzsDialog::on_buttonBox_accepted()
     netData->setTypeConnect(ui->checkBoxConnFromTerm->isChecked());
     netData->setIsActive(ui->checkBoxIsActive->isChecked());
     editNetAzs->writeNetworkData(netData);
+    updateCentralDB();
+    centralDB->writeToDB();
     this->accept();
 }
 
@@ -130,4 +151,6 @@ void EditNetworkAzsDialog::on_tableViewServers_doubleClicked(const QModelIndex &
         modelServers->setQuery(modelServers->query().lastQuery());
     }
 }
+
+
 
