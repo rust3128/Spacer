@@ -3,11 +3,13 @@
 #include "LogginCategories/loggincategories.h"
 #include "ObjectWorkplace/objectworkplacewindow.h"
 #include "ObjectWorkplace/edittitleobjectdialog.h"
+#include "Deploys/getdeploys.h"
 
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QThread>
 
 ObjetsListForm::ObjetsListForm(int ID, QWidget *parent) :
     QWidget(parent),
@@ -15,6 +17,8 @@ ObjetsListForm::ObjetsListForm(int ID, QWidget *parent) :
     netID(ID)
 {
     ui->setupUi(this);
+    centerDB = new CentralDBConnect(netID);
+    centerDB->readFromDB();
     createModel();
     createUI();
 }
@@ -23,6 +27,8 @@ ObjetsListForm::~ObjetsListForm()
 {
     delete ui;
 }
+
+
 
 void ObjetsListForm::slotUpdateObjList()
 {
@@ -44,6 +50,8 @@ void ObjetsListForm::createUI()
     ui->tableViewObjects->resizeRowsToContents();
     ui->splitter->setStretchFactor(0,2);
     ui->splitter->setStretchFactor(1,1);
+
+    deploysShow();
 }
 
 void ObjetsListForm::createModel()
@@ -63,6 +71,75 @@ void ObjetsListForm::createModel()
         _head.next();
         modelObject->setHeaderData(_head.key(),Qt::Horizontal,_head.value());
     }
+}
+
+void ObjetsListForm::deploysShow()
+{
+    // Создаем объект класса и передаем ему параметры
+    GetDeploys *getDeps = new GetDeploys(ui->spinBoxPorog->value(), centerDB);
+    // Создаем поток в которм будут производиться наша выборка
+    QThread *thread = new QThread();
+    // Перемещаем объект класса в поток
+    getDeps->moveToThread(thread);
+
+    //// Сигналы и слоты для взаимидействия с потоком
+
+    // при старте потока выполняем некоторые действия в текущем потоке.
+    // В моем случае на просто засекаю начало выбоки данных
+    connect(thread,&QThread::started,this,&ObjetsListForm::slotStartGetDeploys);
+    // При старте потока начинаем выборку данных
+    connect(thread,&QThread::started,getDeps,&GetDeploys::createListDeploys);
+    // Передача результирующего объекта QVertor из дочернего потока в основной
+    connect(getDeps, &GetDeploys::signalSendDeployList, this, &ObjetsListForm::slotGetDeploys);
+    // Окончание работы потока по завершению выбрки данных
+    connect(getDeps, &GetDeploys::finish,thread,&QThread::quit);
+    // Удаляем объект в потоке
+    connect(getDeps, &GetDeploys::finish,getDeps, &GetDeploys::deleteLater);
+    // Вы полняем действия по в основном потоке после завершения дочернего
+    connect(getDeps, &GetDeploys::finish,this,&ObjetsListForm::slotFinishGetDeploys);
+    // Прощаемся с дочерним потоком
+    connect(thread,&QThread::finished,thread,&QThread::deleteLater);
+    // Запускаем поток
+    thread->start();
+
+}
+
+void ObjetsListForm::showDeploysData(bool show)
+{
+    ui->labelWaiting->setHidden(show);
+    ui->labelDep1->setVisible(show);
+    ui->labelLastDeploys->setVisible(show);
+    ui->tableViewDeploys->setVisible(show);
+    ui->labelDap2->setVisible(show);
+    ui->spinBoxInterval->setVisible(show);
+    ui->labelDep3->setVisible(show);
+    ui->spinBoxPorog->setVisible(show);
+    ui->pushButtonRefreshDeploys->setVisible(show);
+}
+
+void ObjetsListForm::slotStartGetDeploys()
+{
+    showDeploysData(false);
+}
+
+void ObjetsListForm::slotGetDeploys(QVector<DeployData> dp)
+{
+    deploys = dp;
+
+}
+
+void ObjetsListForm::slotFinishGetDeploys()
+{
+    ui->labelLastDeploys->setText(QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss"));
+    showDeploysData(true);
+
+    depModel = new DeploysModel(deploys);
+    proxyDep = new QSortFilterProxyModel();
+    proxyDep->setSourceModel(depModel);
+    ui->tableViewDeploys->setModel(proxyDep);
+    ui->tableViewDeploys->resizeColumnsToContents();
+    ui->tableViewDeploys->verticalHeader()->setDefaultSectionSize(ui->tableViewDeploys->verticalHeader()->minimumSectionSize());
+
 }
 
 void ObjetsListForm::on_tableViewObjects_doubleClicked(const QModelIndex &idx)
@@ -122,5 +199,11 @@ void ObjetsListForm::on_toolButtonAddObject_clicked()
     EditTitleObjectDialog *editNewObj =new  EditTitleObjectDialog(newObjTitle);
     connect(editNewObj,&EditTitleObjectDialog::signalUpdateObjData,this,&ObjetsListForm::slotUpdateObjList);
     editNewObj->exec();
+}
+
+
+void ObjetsListForm::on_pushButtonRefreshDeploys_clicked()
+{
+    deploysShow();
 }
 

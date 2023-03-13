@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>711</width>
-    <height>358</height>
+    <height>381</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -149,6 +149,43 @@
        <string>Обмен с центром</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="0" colspan="3" alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="labelLastDeploys">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="3" alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="labelDep1">
+         <property name="text">
+          <string>Проверка выолнена</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="labelDep3">
+         <property name="text">
+          <string>Интервал проверки каждые</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="labelDap2">
+         <property name="text">
+          <string>Отображать если нет данных более</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item row="5" column="1">
         <widget class="QSpinBox" name="spinBoxInterval">
          <property name="suffix">
@@ -165,30 +202,14 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="3">
-        <widget class="QTableView" name="tableViewDeploys"/>
-       </item>
-       <item row="0" column="0" colspan="3" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label_7">
+       <item row="6" column="0" colspan="3" alignment="Qt::AlignHCenter">
+        <widget class="QPushButton" name="pushButtonRefreshDeploys">
          <property name="text">
-          <string>Проверка выолнена</string>
+          <string>Обновить</string>
          </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Отображать если нет данных более</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Интервал проверки каждые</string>
+         <property name="icon">
+          <iconset resource="../resource.qrc">
+           <normaloff>:/Images/refresh_icon.png</normaloff>:/Images/refresh_icon.png</iconset>
          </property>
         </widget>
        </item>
@@ -208,27 +229,32 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0" colspan="3" alignment="Qt::AlignHCenter">
-        <widget class="QPushButton" name="pushButtonRefreshDeploys">
-         <property name="text">
-          <string>Обновить</string>
+       <item row="2" column="0" colspan="3">
+        <widget class="QTableView" name="tableViewDeploys">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
          </property>
-         <property name="icon">
-          <iconset resource="../resource.qrc">
-           <normaloff>:/Images/refresh_icon.png</normaloff>:/Images/refresh_icon.png</iconset>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
          </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
         </widget>
        </item>
-       <item row="1" column="0" colspan="3" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="labelLastDeploys">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <bold>true</bold>
-          </font>
-         </property>
+       <item row="7" column="0" colspan="3" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+        <widget class="QLabel" name="labelWaiting">
          <property name="text">
-          <string>TextLabel</string>
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../resource.qrc">:/Images/waiting_icon_big.png</pixmap>
          </property>
         </widget>
        </item>

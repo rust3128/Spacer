@@ -11,6 +11,9 @@ win32: RC_ICONS = $$PWD/Images/Spacer.ico
 
 SOURCES += \
     Database/database.cpp \
+    Deploys/deploydata.cpp \
+    Deploys/deploysmodel.cpp \
+    Deploys/getdeploys.cpp \
     Forms/listnetworkform.cpp \
     Forms/modelnetworklist.cpp \
     Forms/objectmodel.cpp \
@@ -53,6 +56,9 @@ SOURCES += \
 
 HEADERS += \
     Database/database.h \
+    Deploys/deploydata.h \
+    Deploys/deploysmodel.h \
+    Deploys/getdeploys.h \
     Forms/listnetworkform.h \
     Forms/modelnetworklist.h \
     Forms/objectmodel.h \
