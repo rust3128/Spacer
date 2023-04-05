@@ -5,6 +5,7 @@
 #include "Forms/workplceform.h"
 #include "ObjectWorkplace/editworkplacedialog.h"
 #include "ObjectWorkplace/tanksinfo.h"
+#include "ObjectWorkplace/dispenserinfo.h"
 
 
 #include <QClipboard>
@@ -83,6 +84,7 @@ void ObjectWorkplaceWindow::createUI()
     showTitleObject();
     showWorkpace();
     tanksTabShow();
+    trkTabShow();
 
 }
 
@@ -108,6 +110,24 @@ void ObjectWorkplaceWindow::tanksTabShow()
 
 }
 
+void ObjectWorkplaceWindow::trkTabShow()
+{
+    DispenserInfo *dispInfo = new DispenserInfo(titleObj->getTerminalID(), dbCenter);
+    QThread *thread = new QThread();
+    dispInfo->moveToThread(thread);
+
+    connect(thread,&QThread::started,this,&ObjectWorkplaceWindow::slotStartGetTanksInfo);
+    connect(thread,&QThread::started,dispInfo,&DispenserInfo::slotCreateDyspInfo);
+    connect(dispInfo,&DispenserInfo::queryFinished,this,&ObjectWorkplaceWindow::slotGetQueryDisp);
+    connect(dispInfo,&DispenserInfo::finished,thread,&QThread::quit);
+    connect(dispInfo,&DispenserInfo::finished,dispInfo,&DispenserInfo::deleteLater);
+    connect(dispInfo,&DispenserInfo::finished,this,&ObjectWorkplaceWindow::slotFinishGetDispInfo);
+    connect(thread,&QThread::finished,thread,&QThread::deleteLater);
+    thread->start();
+}
+
+
+
 void ObjectWorkplaceWindow::slotStartGetTanksInfo()
 {
        ui->tabWidget->setTabIcon(1,QIcon(":/Images/waiting_icon.png"));
@@ -122,12 +142,99 @@ void ObjectWorkplaceWindow::slotGetQueryTanks(QList<TankProperty> list)
     ui->tableViewTanks->resizeColumnsToContents();
 }
 
+
 void ObjectWorkplaceWindow::slotFinishGetTanks()
 {
     ui->tabWidget->setTabIcon(1,QIcon());
     ui->tableViewTanks->show();
     ui->labelWaitingTanks->hide();
 }
+
+void ObjectWorkplaceWindow::slotStartGetDispInfo()
+{
+    ui->tabWidget->setTabIcon(2,QIcon(":/Images/waiting_icon.png"));
+    ui->treeWidgetTRK->hide();
+    ui->labelWaitingDisp->show();
+}
+
+void ObjectWorkplaceWindow::slotFinishGetDispInfo()
+{
+    ui->tabWidget->setTabIcon(2,QIcon());
+    ui->treeWidgetTRK->show();
+    ui->labelWaitingDisp->hide();
+}
+
+void ObjectWorkplaceWindow::slotGetQueryDisp(QList<DispenserProperty> disp, QList<PunpProperty> pump)
+{
+    // Очищаем QTreeWidget перед добавлением новых элементов
+    ui->treeWidgetTRK->clear();
+
+
+    // Определяем количество столбцов
+    int columnCount = 5;
+    ui->treeWidgetTRK->setColumnCount(columnCount);
+
+    // Устанавливаем заголовки столбцов
+    QStringList headerLabels;
+    headerLabels << tr("№ ТРК") << tr("Протокол") << tr("Порт") << tr("Скорость") << tr("Адрес");
+
+    ui->treeWidgetTRK->setHeaderLabels(headerLabels);
+
+    // Добавляем элементы в QTreeWidget
+    QMap<int, QTreeWidgetItem*> items;
+    for (const auto &d : disp) {
+        QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidgetTRK);
+        item->setText(0, QString::number(d.dispenser_id()));
+        item->setText(1, d.portName());
+        item->setText(2, QString::number(d.chanelProt()));
+        item->setText(3, QString::number(d.chanelSpeed()));
+        item->setText(4, QString::number(d.netAdress()));
+        items[d.dispenser_id()] = item;
+    }
+    for (const auto &p : pump) {
+        QTreeWidgetItem* parentItem = items[p.disp_id()];
+        if (!parentItem) continue; // Пропустить pump, если не нашли соответствующий dispenser
+        if (parentItem->childCount() == 0) { // Добавляем названия столбцов
+            QStringList headerLabels;
+            headerLabels << tr("Пистолет") << tr("Резервуар") << tr("Топливо");
+                QTreeWidgetItem* headerItem = new QTreeWidgetItem(headerLabels);
+            for (int i = 0; i < headerLabels.size(); ++i) {
+                headerItem->setBackground(i, Qt::gray);
+                headerItem->setForeground(i, Qt::white);
+            }
+            parentItem->addChild(headerItem);
+            headerItem->setFlags(headerItem->flags() & ~Qt::ItemIsEditable); // Флаг "не редактируемый"
+        }
+        QTreeWidgetItem* item = new QTreeWidgetItem(parentItem);
+        item->setText(0, QString::number(p.pump_id()));
+        item->setText(1, QString::number(p.tank_id()));
+        item->setText(2, p.shortName());
+    }
+
+
+
+//    for (const auto &p : pump) {
+//        QTreeWidgetItem* item = new QTreeWidgetItem();
+//        item->setText(0, QString::number(p.pump_id()));
+//        item->setText(1, QString::number(p.tank_id()));
+//        item->setText(2, p.shortName());
+//        items[p.disp_id()]->addChild(item);
+//    }
+    // Установка ширины столбцов
+    for (int i = 0; i < ui->treeWidgetTRK->columnCount(); ++i) {
+        ui->treeWidgetTRK->resizeColumnToContents(i);
+    }
+
+    // Получаем указатель на заголовок
+    QHeaderView* header = ui->treeWidgetTRK->header();
+
+    // Устанавливаем цвет фона для заголовка
+    header->setStyleSheet("background-color: grey;");
+}
+
+
+
+
 
 void ObjectWorkplaceWindow::showTitleObject()
 {
@@ -212,4 +319,14 @@ void ObjectWorkplaceWindow::slotUpdateWorkplace()
 }
 
 
+
+
+void ObjectWorkplaceWindow::on_treeWidgetTRK_itemExpanded(QTreeWidgetItem *item)
+{
+    Q_UNUSED(item);
+    // Установка ширины столбцов
+    for (int i = 0; i < ui->treeWidgetTRK->columnCount(); ++i) {
+            ui->treeWidgetTRK->resizeColumnToContents(i);
+    }
+}
 

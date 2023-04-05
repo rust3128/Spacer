@@ -35,6 +35,8 @@ SOURCES += \
     NetworkAzs/networkazsdialog.cpp \
     NetworkAzs/networkdata.cpp \
     ObjectWorkplace/connstatusvnc.cpp \
+    ObjectWorkplace/dispenserinfo.cpp \
+    ObjectWorkplace/dispenserproperty.cpp \
     ObjectWorkplace/edittitleobjectdialog.cpp \
     ObjectWorkplace/editworkplacedialog.cpp \
     ObjectWorkplace/objectdata.cpp \
@@ -42,6 +44,7 @@ SOURCES += \
     ObjectWorkplace/objectworkplacewindow.cpp \
     ObjectWorkplace/pingdialog.cpp \
     ObjectWorkplace/pingmodel.cpp \
+    ObjectWorkplace/punpproperty.cpp \
     ObjectWorkplace/tankproperty.cpp \
     ObjectWorkplace/tanksinfo.cpp \
     ObjectWorkplace/tanksinfomodel.cpp \
@@ -83,6 +86,8 @@ HEADERS += \
     NetworkAzs/networkazsdialog.h \
     NetworkAzs/networkdata.h \
     ObjectWorkplace/connstatusvnc.h \
+    ObjectWorkplace/dispenserinfo.h \
+    ObjectWorkplace/dispenserproperty.h \
     ObjectWorkplace/edittitleobjectdialog.h \
     ObjectWorkplace/editworkplacedialog.h \
     ObjectWorkplace/objectdata.h \
@@ -90,6 +95,7 @@ HEADERS += \
     ObjectWorkplace/objectworkplacewindow.h \
     ObjectWorkplace/pingdialog.h \
     ObjectWorkplace/pingmodel.h \
+    ObjectWorkplace/punpproperty.h \
     ObjectWorkplace/tankproperty.h \
     ObjectWorkplace/tanksinfo.h \
     ObjectWorkplace/tanksinfomodel.h \
