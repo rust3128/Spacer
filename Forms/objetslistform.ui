@@ -165,7 +165,7 @@
        <item row="0" column="0" colspan="3" alignment="Qt::AlignHCenter">
         <widget class="QLabel" name="labelDep1">
          <property name="text">
-          <string>Проверка выолнена</string>
+          <string>Задержки обена с ЦБ</string>
          </property>
         </widget>
        </item>

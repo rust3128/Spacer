@@ -4,10 +4,14 @@
 #include "ObjectWorkplace/edittitleobjectdialog.h"
 #include "Forms/workplceform.h"
 #include "ObjectWorkplace/editworkplacedialog.h"
+#include "ObjectWorkplace/tanksinfo.h"
 
 
 #include <QClipboard>
 #include <QListWidgetItem>
+#include <QMessageBox>
+#include <QSqlError>
+#include <QThread>
 
 ObjectWorkplaceWindow::ObjectWorkplaceWindow(int ID, QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +21,10 @@ ObjectWorkplaceWindow::ObjectWorkplaceWindow(int ID, QWidget *parent) :
     ui->setupUi(this);
     objData = new ObjectData(objectID);
     titleObj = objData->getObjTitle();
+    centerDB = new CentralDBConnect(titleObj->getNetworkID());
+    centerDB->readFromDB();
+    openCentralDatabase();
+//    createTanksModel();
     createUI();
 }
 
@@ -25,6 +33,37 @@ ObjectWorkplaceWindow::~ObjectWorkplaceWindow()
     delete ui;
 }
 
+void ObjectWorkplaceWindow::openCentralDatabase()
+{
+    dataBaseConName = "network"+QString::number(titleObj->getNetworkID());
+
+    dbCenter = QSqlDatabase::database(dataBaseConName);
+    if(!dbCenter.isValid()){
+
+        dbCenter = QSqlDatabase::addDatabase("QIBASE",dataBaseConName);
+        dbCenter.setHostName(centerDB->getServer());
+        dbCenter.setPort(centerDB->getPort());
+        dbCenter.setDatabaseName(centerDB->getFileDB());
+        dbCenter.setUserName(centerDB->getUser());
+        dbCenter.setPassword(centerDB->getPass());
+
+
+        if(!dbCenter.open()) {
+            qCritical(logCritical()) << "Не могу подключится к центральной базе" << Qt::endl << dbCenter.lastError().text();
+            QMessageBox msgBox;
+            msgBox.setWindowTitle(tr("Ошибка подключения."));
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText(tr("Произошла ошибка при подключении к центральной базе данных!\nИнформацию о конфигурации АЗС получить невозможно"));
+            msgBox.setInformativeText(tr("Текст ошибки:\n")+dbCenter.lastError().text());
+            QString strDetali = QString("Server:\t"+centerDB->getServer()+":"+QString::number(centerDB->getPort())+
+                                        "\nDatabase:\t"+centerDB->getFileDB()+
+                                        "\nUser:\t"+centerDB->getUser());
+            msgBox.setDetailedText(strDetali);
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.exec();
+        }
+    }
+}
 
 void ObjectWorkplaceWindow::createUI()
 {
@@ -43,6 +82,51 @@ void ObjectWorkplaceWindow::createUI()
     ui->labelAZSNumber->setText(tr("АЗС № ")+QString::number(titleObj->getTerminalID()));
     showTitleObject();
     showWorkpace();
+    tanksTabShow();
+
+}
+
+
+
+void ObjectWorkplaceWindow::tanksTabShow()
+{
+    TanksInfo *tanksInfo = new TanksInfo(titleObj->getTerminalID(), dbCenter);
+
+    QThread *thread = new QThread();
+
+    tanksInfo->moveToThread(thread);
+
+    connect(thread,&QThread::started,this,&ObjectWorkplaceWindow::slotStartGetTanksInfo);
+    connect(thread,&QThread::started,tanksInfo,&TanksInfo::createTanksQuery);
+
+    connect(tanksInfo,&TanksInfo::queryFinished,this,&ObjectWorkplaceWindow::slotGetQueryTanks);
+    connect(tanksInfo,&TanksInfo::finished,thread,&QThread::quit);
+    connect(tanksInfo,&TanksInfo::finished,tanksInfo,&TanksInfo::deleteLater);
+    connect(tanksInfo,&TanksInfo::finished,this,&ObjectWorkplaceWindow::slotFinishGetTanks);
+    connect(thread,&QThread::finished,thread,&QThread::deleteLater);
+    thread->start();
+
+}
+
+void ObjectWorkplaceWindow::slotStartGetTanksInfo()
+{
+       ui->tabWidget->setTabIcon(1,QIcon(":/Images/waiting_icon.png"));
+       ui->tableViewTanks->hide();
+       ui->labelWaitingTanks->show();
+}
+
+void ObjectWorkplaceWindow::slotGetQueryTanks(QList<TankProperty> list)
+{
+    modelTanks = new TanksInfoModel(list);
+    ui->tableViewTanks->setModel(modelTanks);
+    ui->tableViewTanks->resizeColumnsToContents();
+}
+
+void ObjectWorkplaceWindow::slotFinishGetTanks()
+{
+    ui->tabWidget->setTabIcon(1,QIcon());
+    ui->tableViewTanks->show();
+    ui->labelWaitingTanks->hide();
 }
 
 void ObjectWorkplaceWindow::showTitleObject()
@@ -88,6 +172,10 @@ void ObjectWorkplaceWindow::showWorkpace()
 
 }
 
+
+
+
+
 void ObjectWorkplaceWindow::on_toolButtonClipboard_clicked()
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
@@ -122,4 +210,6 @@ void ObjectWorkplaceWindow::slotUpdateWorkplace()
     emit signalWorkplaceUpdate(objectID);
     this->close();
 }
+
+
 

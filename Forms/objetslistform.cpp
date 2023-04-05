@@ -19,6 +19,12 @@ ObjetsListForm::ObjetsListForm(int ID, QWidget *parent) :
     ui->setupUi(this);
     centerDB = new CentralDBConnect(netID);
     centerDB->readFromDB();
+    timer = new QTimer();
+    connect(timer,&QTimer::timeout,this,&ObjetsListForm::deploysShow);
+
+    timer->setInterval(ui->spinBoxInterval->value()*60000);
+    timer->start(); // И запустим таймер
+
     createModel();
     createUI();
 }
@@ -89,6 +95,8 @@ void ObjetsListForm::deploysShow()
     connect(thread,&QThread::started,this,&ObjetsListForm::slotStartGetDeploys);
     // При старте потока начинаем выборку данных
     connect(thread,&QThread::started,getDeps,&GetDeploys::createListDeploys);
+    // Передача сообщения об ошибке при подключении к БД
+    connect(getDeps, &GetDeploys::signalError, this, &ObjetsListForm::slotErrorGetDeploys);
     // Передача результирующего объекта QVertor из дочернего потока в основной
     connect(getDeps, &GetDeploys::signalSendDeployList, this, &ObjetsListForm::slotGetDeploys);
     // Окончание работы потока по завершению выбрки данных
@@ -102,6 +110,21 @@ void ObjetsListForm::deploysShow()
     // Запускаем поток
     thread->start();
 
+}
+
+void ObjetsListForm::slotErrorGetDeploys(QString message)
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(tr("Ошибка подключения."));
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setText(tr("Произошла ошибка при подключении к центральной базе данных!"));
+    msgBox.setInformativeText(tr("Текст ошибки:\n")+message);
+    QString strDetali = QString("Server:\t"+centerDB->getServer()+":"+QString::number(centerDB->getPort())+
+                                "\nDatabase:\t"+centerDB->getFileDB()+
+                                "\nUser:\t"+centerDB->getUser());
+    msgBox.setDetailedText(strDetali);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.exec();
 }
 
 void ObjetsListForm::showDeploysData(bool show)
@@ -205,5 +228,11 @@ void ObjetsListForm::on_toolButtonAddObject_clicked()
 void ObjetsListForm::on_pushButtonRefreshDeploys_clicked()
 {
     deploysShow();
+}
+
+
+void ObjetsListForm::on_spinBoxInterval_valueChanged(int interval)
+{
+    timer->setInterval(interval*60000);
 }
 

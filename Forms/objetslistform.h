@@ -10,6 +10,7 @@
 
 #include <QSortFilterProxyModel>
 #include <QWidget>
+#include <QTimer>
 
 namespace Ui {
 class ObjetsListForm;
@@ -27,6 +28,8 @@ public slots:
     void slotUpdateObjList();
     void slotWorkplaceUpdate(int ID);
 private slots:
+    void deploysShow();
+    void slotErrorGetDeploys(QString message);
     void slotStartGetDeploys();
     void slotGetDeploys(QVector<DeployData> dp);
     void slotFinishGetDeploys();
@@ -36,10 +39,11 @@ private slots:
 
     void on_pushButtonRefreshDeploys_clicked();
 
+    void on_spinBoxInterval_valueChanged(int interval);
+
 private:
     void createUI();
     void createModel();
-    void deploysShow();
     void showDeploysData(bool show);
 private:
     Ui::ObjetsListForm *ui;
@@ -51,6 +55,7 @@ private:
     QVector<DeployData> deploys;
     DeploysModel *depModel;
     QSortFilterProxyModel *proxyDep;
+    QTimer *timer;
 
 };
 

@@ -24,5 +24,6 @@
         <file>Images/gas station_icon.png</file>
         <file>Images/Spacer.ico</file>
         <file>Images/waiting_icon_big.png</file>
+        <file>Images/tanks.png</file>
     </qresource>
 </RCC>

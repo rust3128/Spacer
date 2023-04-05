@@ -42,6 +42,9 @@ SOURCES += \
     ObjectWorkplace/objectworkplacewindow.cpp \
     ObjectWorkplace/pingdialog.cpp \
     ObjectWorkplace/pingmodel.cpp \
+    ObjectWorkplace/tankproperty.cpp \
+    ObjectWorkplace/tanksinfo.cpp \
+    ObjectWorkplace/tanksinfomodel.cpp \
     ObjectWorkplace/workpalce.cpp \
     Settings/criptpass.cpp \
     Settings/edituserdata.cpp \
@@ -87,6 +90,9 @@ HEADERS += \
     ObjectWorkplace/objectworkplacewindow.h \
     ObjectWorkplace/pingdialog.h \
     ObjectWorkplace/pingmodel.h \
+    ObjectWorkplace/tankproperty.h \
+    ObjectWorkplace/tanksinfo.h \
+    ObjectWorkplace/tanksinfomodel.h \
     ObjectWorkplace/workpalce.h \
     Settings/criptpass.h \
     Settings/edituserdata.h \

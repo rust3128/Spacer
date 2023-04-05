@@ -20,6 +20,8 @@ public:
 signals:
     // Сигнал дя отправки данных в основной поток для дальнейшей их обработки
     void signalSendDeployList(QVector<DeployData>);
+    // Сигнал об ошибке подключения к БД
+    void signalError(QString);
     // Сигнал об окончании выборки данных
     void finish();
 public slots:

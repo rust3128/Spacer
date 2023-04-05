@@ -29,6 +29,7 @@ void GetDeploys::createListDeploys()
     if(!dbth.open()) {
         qCritical(logCritical()) << Q_FUNC_INFO << "Не могу подключится к центральной базе"
                                  << Qt::endl << dbth.lastError().text();
+        emit signalError(dbth.lastError().text());
         return;
     }
     // Привязыем запрос к соединению
@@ -41,11 +42,11 @@ void GetDeploys::createListDeploys()
                    "where p.terminal_id = t.terminal_id and p.apply = 'T' "
                    "order by p.doper desc) "
                 "from terminals t "
-                "where t.iswork = 'T' and t.terminaltype = 3 and t.region_id != 99 ) s "
+                "where t.terminaltype = 3 and t.isactive = 'T' and t.iswork = 'T') s "
               "where "
               "(datediff(minute,s.doper,current_timestamp) > :porog) "
               "order by s.doper");
-    q.bindValue(":porog", m_porog);
+    q.bindValue(0, m_porog);
 
     if(!q.exec()) {
             qInfo(logInfo()) << "Errog get deploys" << q.lastError().text();
@@ -60,8 +61,10 @@ void GetDeploys::createListDeploys()
     }
     emit signalSendDeployList(deployList);
     q.finish(); // заканчиваю работу запроса
+
     dbth.commit(); // commit
     dbth.close(); // close
-    dbth.removeDatabase("centrDB"); ///Удаляю подключение
+    dbth = QSqlDatabase();
+    QSqlDatabase::removeDatabase("centrDB"); ///Удаляю подключение
     emit finish();
 }
