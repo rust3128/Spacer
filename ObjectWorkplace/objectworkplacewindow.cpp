@@ -174,6 +174,7 @@ void ObjectWorkplaceWindow::slotGetQueryDisp(QList<DispenserProperty> disp, QLis
     int columnCount = 5;
     ui->treeWidgetTRK->setColumnCount(columnCount);
 
+
     // Устанавливаем заголовки столбцов
     QStringList headerLabels;
     headerLabels << tr("№ ТРК") << tr("Протокол") << tr("Порт") << tr("Скорость") << tr("Адрес");
@@ -210,26 +211,10 @@ void ObjectWorkplaceWindow::slotGetQueryDisp(QList<DispenserProperty> disp, QLis
         item->setText(1, QString::number(p.tank_id()));
         item->setText(2, p.shortName());
     }
-
-
-
-//    for (const auto &p : pump) {
-//        QTreeWidgetItem* item = new QTreeWidgetItem();
-//        item->setText(0, QString::number(p.pump_id()));
-//        item->setText(1, QString::number(p.tank_id()));
-//        item->setText(2, p.shortName());
-//        items[p.disp_id()]->addChild(item);
-//    }
-    // Установка ширины столбцов
     for (int i = 0; i < ui->treeWidgetTRK->columnCount(); ++i) {
         ui->treeWidgetTRK->resizeColumnToContents(i);
     }
 
-    // Получаем указатель на заголовок
-    QHeaderView* header = ui->treeWidgetTRK->header();
-
-    // Устанавливаем цвет фона для заголовка
-    header->setStyleSheet("background-color: grey;");
 }
 
 
