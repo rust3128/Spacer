@@ -14,7 +14,7 @@ ModelNetworkList::ModelNetworkList(QObject *parent)
 
 QVariant ModelNetworkList::data(const QModelIndex &idx, int role) const
 {
-    QVariant value = QSqlQueryModel::data(idx,role);;
+    QVariant value = QSqlQueryModel::data(idx,role);
 
         switch ( role )
         {

@@ -6,15 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>711</width>
-    <height>381</height>
+    <width>978</width>
+    <height>732</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="0">
+  <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1,0">
+   <item row="0" column="0" alignment="Qt::AlignHCenter">
+    <widget class="QLabel" name="labelNotConnectAZS">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(170, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>Подключение к АЗС возможно только с терминального сервера сети АЗС.</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QSplitter" name="splitter">
      <property name="styleSheet">
       <string notr="true">QSplitter {
@@ -144,7 +169,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="groupBoxDeploys">
       <property name="title">
        <string>Обмен с центром</string>
       </property>
@@ -260,6 +285,16 @@
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="groupBoxRDP">
+     <property name="styleSheet">
+      <string notr="true">QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top center; padding: 0 3px; qproperty-titleAlignment: AlignCenter; }</string>
+     </property>
+     <property name="title">
+      <string>Подключения к серверам</string>
+     </property>
     </widget>
    </item>
   </layout>

@@ -49,6 +49,7 @@ SOURCES += \
     ObjectWorkplace/tanksinfo.cpp \
     ObjectWorkplace/tanksinfomodel.cpp \
     ObjectWorkplace/workpalce.cpp \
+    Rdp/rdpconnecteditdialog.cpp \
     Settings/criptpass.cpp \
     Settings/edituserdata.cpp \
     Settings/modeeluserlist.cpp \
@@ -100,6 +101,7 @@ HEADERS += \
     ObjectWorkplace/tanksinfo.h \
     ObjectWorkplace/tanksinfomodel.h \
     ObjectWorkplace/workpalce.h \
+    Rdp/rdpconnecteditdialog.h \
     Settings/criptpass.h \
     Settings/edituserdata.h \
     Settings/modeeluserlist.h \
@@ -108,6 +110,7 @@ HEADERS += \
     Settings/userdata.h \
     Settings/userdatadialog.h \
     Settings/userlistdialog.h \
+    global.h \
     mainwindow.h
 
 FORMS += \
@@ -123,6 +126,7 @@ FORMS += \
     ObjectWorkplace/editworkplacedialog.ui \
     ObjectWorkplace/objectworkplacewindow.ui \
     ObjectWorkplace/pingdialog.ui \
+    Rdp/rdpconnecteditdialog.ui \
     Settings/settingsdialog.ui \
     Settings/userdatadialog.ui \
     Settings/userlistdialog.ui \

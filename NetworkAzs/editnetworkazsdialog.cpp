@@ -68,6 +68,7 @@ void EditNetworkAzsDialog::createUI()
     ui->tableViewServers->setModel(modelServers);
     ui->tableViewServers->hideColumn(0);
     ui->tableViewServers->resizeColumnsToContents();
+    ui->tableViewServers->resizeRowsToContents();
 
     QAction *openDBAction = ui->lineEditDataBaseFile->addAction(QIcon(":/Images/folder_icon.png"),QLineEdit::TrailingPosition);
     connect(openDBAction,&QAction::triggered,this,&EditNetworkAzsDialog::actionOpenDBTrigered);
@@ -84,12 +85,12 @@ void EditNetworkAzsDialog::createUI()
 void EditNetworkAzsDialog::createModel()
 {
     modelServers = new ModelSrvers(this);
-    QString strSQL = QString("select s.server_id, s.hostname, s.port, s.comments, s.isactive from servers s where s.network_id = %1")
+    QString strSQL = QString("select s.server_id, s.hostname, s.port, s.server_type, s.isactive from servers s where s.network_id = %1")
             .arg(networkID);
     modelServers->setQuery(strSQL);
     modelServers->setHeaderData(1,Qt::Horizontal,tr("Хост/IP"));
     modelServers->setHeaderData(2,Qt::Horizontal,tr("Порт"));
-    modelServers->setHeaderData(3,Qt::Horizontal,tr("Описание"));
+    modelServers->setHeaderData(3,Qt::Horizontal,tr("Роль"));
     modelServers->setHeaderData(4,Qt::Horizontal,tr("Работает"));
 }
 
@@ -139,6 +140,8 @@ void EditNetworkAzsDialog::on_pushButtonAddServer_clicked()
         EditServerDialog *editServer = new EditServerDialog(newServerID,this);
         if(editServer->exec() == QDialog::Accepted){
             modelServers->setQuery(modelServers->query().lastQuery());
+            ui->tableViewServers->resizeColumnsToContents();
+            ui->tableViewServers->resizeRowsToContents();
         }
     }
 }
@@ -149,6 +152,8 @@ void EditNetworkAzsDialog::on_tableViewServers_doubleClicked(const QModelIndex &
     EditServerDialog *editServerDlg = new EditServerDialog(modelServers->data(modelServers->index(idx.row(),0),Qt::DisplayRole).toInt());
     if(editServerDlg->exec() == QDialog::Accepted){
         modelServers->setQuery(modelServers->query().lastQuery());
+        ui->tableViewServers->resizeRowsToContents();
+        ui->tableViewServers->resizeColumnsToContents();
     }
 }
 

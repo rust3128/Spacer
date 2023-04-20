@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>304</width>
-    <height>226</height>
+    <width>298</width>
+    <height>215</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -27,9 +27,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="3">
-    <widget class="QLineEdit" name="lineEditHost"/>
-   </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
@@ -37,27 +34,27 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QLineEdit" name="lineEditPort"/>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Описание</string>
+   <item row="4" column="0" colspan="3">
+    <widget class="QGroupBox" name="groupBoxType">
+     <property name="title">
+      <string>Роль сервера</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="3">
-    <widget class="QLineEdit" name="lineEditComments"/>
-   </item>
-   <item row="7" column="2">
+   <item row="6" column="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Close|QDialogButtonBox::Save</set>
      </property>
     </widget>
    </item>
-   <item row="6" column="0" colspan="3" alignment="Qt::AlignHCenter">
+   <item row="1" column="0" colspan="3">
+    <widget class="QLineEdit" name="lineEditHost"/>
+   </item>
+   <item row="3" column="0" colspan="3">
+    <widget class="QLineEdit" name="lineEditPort"/>
+   </item>
+   <item row="5" column="0" colspan="3" alignment="Qt::AlignHCenter">
     <widget class="QCheckBox" name="checkBox">
      <property name="text">
       <string>В работе</string>

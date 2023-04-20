@@ -6,6 +6,7 @@
 #include "Settings/edituserdata.h"
 #include "Settings/userdata.h"
 #include "Database/database.h"
+#include "global.h"
 
 #include <QApplication>
 #include <QLocale>
@@ -18,6 +19,8 @@
 
 // Умный указатель на файл логирования
 static QScopedPointer<QFile>   m_logFile;
+
+int globalUserID =0;
 
 // Объявление обработчика
 void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg);
@@ -73,6 +76,7 @@ int main(int argc, char *argv[])
     q.next();
     bool isNew = q.value(1).toBool();
     int userID = q.value(0).toInt();
+    globalUserID = userID;
     q.exec("commit work");
 
     if(isNew){

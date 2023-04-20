@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>709</width>
-    <height>544</height>
+    <height>585</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -245,7 +245,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1" alignment="Qt::AlignHCenter">
+        <item row="0" column="1">
          <widget class="QLabel" name="label">
           <property name="font">
            <font>
@@ -261,13 +261,36 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+        <item row="2" column="0" colspan="2" alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="labelWaitingTanks">
           <property name="text">
            <string/>
           </property>
           <property name="pixmap">
            <pixmap resource="../resource.qrc">:/Images/waiting_icon_big.png</pixmap>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+         <widget class="QLabel" name="labelTankNotFound">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(170, 0, 0);</string>
+          </property>
+          <property name="text">
+           <string>Данные по ререзрвуарам не доступны.
+Нет подключения к центральной БД.</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -279,6 +302,25 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
+         <widget class="QLabel" name="labelDispenserLogo">
+          <property name="maximumSize">
+           <size>
+            <width>120</width>
+            <height>60</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../resource.qrc">:/Images/dispenser.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
          <widget class="QTreeWidget" name="treeWidgetTRK">
           <property name="autoFillBackground">
            <bool>false</bool>
@@ -330,13 +372,49 @@
           </column>
          </widget>
         </item>
-        <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Конфигурция ТРК</string>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2" alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="labelWaitingDisp">
           <property name="text">
            <string/>
           </property>
           <property name="pixmap">
            <pixmap resource="../resource.qrc">:/Images/waiting_icon_big.png</pixmap>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="labelTRKNotFound">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(170, 0, 0);</string>
+          </property>
+          <property name="text">
+           <string>Данные по ТРК не доступны.
+Нет подключения к центральной БД.</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>

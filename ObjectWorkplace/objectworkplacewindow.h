@@ -61,6 +61,7 @@ private:
     CentralDBConnect *centerDB;
     QSqlDatabase dbCenter;
     QString dataBaseConName;
+    bool availCenterDB;
 };
 
 #endif // OBJECTWORKPLACEWINDOW_H

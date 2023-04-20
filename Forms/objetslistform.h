@@ -27,6 +27,7 @@ public slots:
 
     void slotUpdateObjList();
     void slotWorkplaceUpdate(int ID);
+
 private slots:
     void deploysShow();
     void slotErrorGetDeploys(QString message);
@@ -38,16 +39,18 @@ private slots:
     void on_toolButtonAddObject_clicked();
 
     void on_pushButtonRefreshDeploys_clicked();
-
     void on_spinBoxInterval_valueChanged(int interval);
-
+    void slotPushButtonRdpClicked();
 private:
     void createUI();
     void createModel();
     void showDeploysData(bool show);
+    bool typeGetTypeConnect();
+    void createButtonRDP();
 private:
     Ui::ObjetsListForm *ui;
     int netID;
+    int m_userID;
     ObjectModel *modelObject;
     ObjectData *newObjData;
     ObjectTitle *newObjTitle;
@@ -56,6 +59,7 @@ private:
     DeploysModel *depModel;
     QSortFilterProxyModel *proxyDep;
     QTimer *timer;
+    bool typeConnect;                   //Тип подключения к АЗС 1-Термадм 0 -Сервер
 
 };
 

@@ -25,7 +25,6 @@ ObjectWorkplaceWindow::ObjectWorkplaceWindow(int ID, QWidget *parent) :
     centerDB = new CentralDBConnect(titleObj->getNetworkID());
     centerDB->readFromDB();
     openCentralDatabase();
-//    createTanksModel();
     createUI();
 }
 
@@ -47,10 +46,11 @@ void ObjectWorkplaceWindow::openCentralDatabase()
         dbCenter.setDatabaseName(centerDB->getFileDB());
         dbCenter.setUserName(centerDB->getUser());
         dbCenter.setPassword(centerDB->getPass());
-
+        availCenterDB =true;
 
         if(!dbCenter.open()) {
             qCritical(logCritical()) << "Не могу подключится к центральной базе" << Qt::endl << dbCenter.lastError().text();
+            availCenterDB =false;
             QMessageBox msgBox;
             msgBox.setWindowTitle(tr("Ошибка подключения."));
             msgBox.setIcon(QMessageBox::Critical);
@@ -83,8 +83,19 @@ void ObjectWorkplaceWindow::createUI()
     ui->labelAZSNumber->setText(tr("АЗС № ")+QString::number(titleObj->getTerminalID()));
     showTitleObject();
     showWorkpace();
-    tanksTabShow();
-    trkTabShow();
+    if(availCenterDB){
+        tanksTabShow();
+        trkTabShow();
+        ui->labelTankNotFound->hide();
+        ui->labelTRKNotFound->hide();
+    } else {
+        ui->labelTankNotFound->show();
+        ui->tableViewTanks->hide();
+        ui->labelWaitingTanks->hide();
+        ui->labelTRKNotFound->show();
+        ui->labelWaitingDisp->hide();
+        ui->treeWidgetTRK->hide();
+    }
 
 }
 

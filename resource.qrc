@@ -25,5 +25,7 @@
         <file>Images/Spacer.ico</file>
         <file>Images/waiting_icon_big.png</file>
         <file>Images/tanks.png</file>
+        <file>Images/rdp.png</file>
+        <file>Images/dispenser.png</file>
     </qresource>
 </RCC>

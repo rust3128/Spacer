@@ -68,10 +68,13 @@ void WorkplceForm::slotGetStatus(bool st)
 void WorkplceForm::slotFinishConStatus()
 {
     QPixmap pixmap;
+
     if(isReadyVNC){
         pixmap = QPixmap(":/Images/online_network_icon.png");
+        setStyleSheet("background-color: #E6F3E6;"); // светло-зеленый цвет
     } else {
         pixmap = QPixmap(":/Images/offline_network_icon.png");
+        setStyleSheet("background-color: #ff5252;"); // красный цвет
     }
     ui->labelStatus->setPixmap(pixmap);
     ui->toolButtonVNC->setEnabled(isReadyVNC);
@@ -80,7 +83,7 @@ void WorkplceForm::slotFinishConStatus()
 
 void WorkplceForm::on_toolButtonPing_clicked()
 {
-    PingDialog *pingDlg = new PingDialog(&curWorplace,this);
+    PingDialog *pingDlg = new PingDialog(&curWorplace);
     pingDlg->exec();
 }
 
@@ -111,7 +114,7 @@ void WorkplceForm::on_toolButtonRefresh_clicked()
 
 void WorkplceForm::on_toolButtonEdit_clicked()
 {
-    EditWorkplaceDialog *editWork = new EditWorkplaceDialog(titleObject, &curWorplace, this);
+    EditWorkplaceDialog *editWork = new EditWorkplaceDialog(titleObject, &curWorplace);
     if(editWork->exec() == QDialog::Accepted){
         emit signalSendUpdateWp();
     }

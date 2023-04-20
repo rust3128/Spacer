@@ -4,6 +4,8 @@
 #include "ObjectWorkplace/objectworkplacewindow.h"
 #include "ObjectWorkplace/edittitleobjectdialog.h"
 #include "Deploys/getdeploys.h"
+#include "global.h"
+#include "Rdp/rdpconnecteditdialog.h"
 
 #include <QInputDialog>
 #include <QMessageBox>
@@ -17,13 +19,17 @@ ObjetsListForm::ObjetsListForm(int ID, QWidget *parent) :
     netID(ID)
 {
     ui->setupUi(this);
-    centerDB = new CentralDBConnect(netID);
-    centerDB->readFromDB();
-    timer = new QTimer();
-    connect(timer,&QTimer::timeout,this,&ObjetsListForm::deploysShow);
+    m_userID = globalUserID;
+    typeConnect = typeGetTypeConnect();
+    if(typeConnect) {
+        centerDB = new CentralDBConnect(netID);
+        centerDB->readFromDB();
+        timer = new QTimer();
+        connect(timer,&QTimer::timeout,this,&ObjetsListForm::deploysShow);
 
-    timer->setInterval(ui->spinBoxInterval->value()*60000);
-    timer->start(); // И запустим таймер
+        timer->setInterval(ui->spinBoxInterval->value()*60000);
+        timer->start(); // И запустим таймер
+    }
 
     createModel();
     createUI();
@@ -56,8 +62,81 @@ void ObjetsListForm::createUI()
     ui->tableViewObjects->resizeRowsToContents();
     ui->splitter->setStretchFactor(0,2);
     ui->splitter->setStretchFactor(1,1);
+    ui->labelNotConnectAZS->setHidden(typeConnect);
+    if(typeConnect){
+        deploysShow();
+    } else {
+        ui->groupBoxDeploys->hide();
+    }
+    createButtonRDP();
+}
 
-    deploysShow();
+void ObjetsListForm::createButtonRDP()
+{
+    QSqlQuery query;
+    query.prepare("SELECT * FROM servers WHERE network_id = :netID");
+    query.bindValue(0, netID);
+    query.exec();
+
+    QHBoxLayout *layout = new QHBoxLayout(ui->groupBoxRDP);
+    ui->groupBoxRDP->setLayout(layout);
+
+    while (query.next()) {
+        int serverId = query.value("server_id").toInt();
+        QString hostname = query.value("hostname").toString();
+
+        QString ids = query.value("server_type").toString();
+        QString names;
+        QSqlQuery q;
+        q.prepare("SELECT DESCRIPTION FROM server_type WHERE type_id IN (" + ids + ")");
+        if (q.exec() && q.next())
+        {
+            names = QStringLiteral("\u2022")+q.value(0).toString();
+            while (q.next())
+            {
+                names += "\n" + QStringLiteral("\u2022") + q.value(0).toString();
+            }
+        }
+
+        QPushButton *button = new QPushButton(names, ui->groupBoxRDP);
+        button->setObjectName(QString::number(serverId));
+        connect(button, &QPushButton::clicked, this, &ObjetsListForm::slotPushButtonRdpClicked);
+
+        QIcon icon(":/Images/rdp.png");
+        button->setIcon(icon);
+        button->setIconSize(QSize(32, 32));
+
+        QSize size = button->sizeHint();
+        size.setWidth(size.width() + 20); // добавляем небольшой отступ для красоты
+        button->setFixedSize(size);
+
+        button->setToolTip(hostname);
+        button->setToolTipDuration(0);
+        layout->addWidget(button);
+    }
+}
+
+
+void ObjetsListForm::slotPushButtonRdpClicked()
+{
+    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    if (button) {
+        int serverID = button->objectName().toInt();
+        QSqlQuery q;
+        q.prepare("select r.rdp_id from rdpinfo r where r.user_id = ? and r.server_id = ?");
+        q.bindValue(0, m_userID);
+        q.bindValue(1, serverID);
+        q.exec();
+        if (!q.next()) {
+            qInfo(logInfo()) << "Create new rdp connection;";
+            RdpConnectEditDialog *rdpConDlg = new RdpConnectEditDialog(0, m_userID, serverID);
+            if(rdpConDlg->exec() == QDialog::Accepted){
+
+            }
+
+        }
+    }
+
 }
 
 void ObjetsListForm::createModel()
@@ -140,6 +219,18 @@ void ObjetsListForm::showDeploysData(bool show)
     ui->pushButtonRefreshDeploys->setVisible(show);
 }
 
+bool ObjetsListForm::typeGetTypeConnect()
+{
+    QSqlQuery q;
+    q.prepare("select n.typeconnect from networkazs n where n.network_id = ?");
+    q.bindValue(0,netID);
+    q.exec();
+    q.next();
+    return q.value(0).toBool();
+}
+
+
+
 void ObjetsListForm::slotStartGetDeploys()
 {
     showDeploysData(false);
@@ -181,6 +272,8 @@ void ObjetsListForm::slotWorkplaceUpdate(int ID)
     connect(objWin,&ObjectWorkplaceWindow::signalWorkplaceUpdate,this,&ObjetsListForm::slotWorkplaceUpdate);
     objWin->show();
 }
+
+
 
 void ObjetsListForm::on_toolButtonAddObject_clicked()
 {
@@ -235,4 +328,6 @@ void ObjetsListForm::on_spinBoxInterval_valueChanged(int interval)
 {
     timer->setInterval(interval*60000);
 }
+
+
 

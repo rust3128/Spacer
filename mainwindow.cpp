@@ -10,6 +10,7 @@
 
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QToolTip>
 
 MainWindow::MainWindow(int id, QWidget *parent)
     : QMainWindow(parent)

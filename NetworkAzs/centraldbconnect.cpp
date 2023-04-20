@@ -21,7 +21,12 @@ void CentralDBConnect::readFromDB()
         qCritical(logCritical())<< QApplication::tr("Не удалось получить данные о центральной базе данных") << q.lastError().text();
         return;
     }
-    q.next();
+    if (!q.next()) {
+        qCritical(logCritical())<< QApplication::tr("Нет данных о центральной базе данных для данного идентификатора сети");
+        server = fileDB = user = pass = QApplication::tr("Нет данных");
+        port =0;
+        return;
+    }
     server = q.value(0).toString();
     port = q.value(1).toInt();
     fileDB = q.value(2).toString();
