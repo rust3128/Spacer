@@ -50,6 +50,7 @@ SOURCES += \
     ObjectWorkplace/tanksinfomodel.cpp \
     ObjectWorkplace/workpalce.cpp \
     Rdp/rdpconnecteditdialog.cpp \
+    Rdp/rdpproperty.cpp \
     Settings/criptpass.cpp \
     Settings/edituserdata.cpp \
     Settings/modeeluserlist.cpp \
@@ -102,6 +103,7 @@ HEADERS += \
     ObjectWorkplace/tanksinfomodel.h \
     ObjectWorkplace/workpalce.h \
     Rdp/rdpconnecteditdialog.h \
+    Rdp/rdpproperty.h \
     Settings/criptpass.h \
     Settings/edituserdata.h \
     Settings/modeeluserlist.h \
